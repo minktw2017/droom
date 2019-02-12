@@ -1,0 +1,15 @@
+{% extends "shop/base.html" %}
+
+{% block title %}訂單完成{% endblock %}
+
+{% block content %}
+<div class="grid-container grid-container-padded">
+  <div class="cell small-12 medium-9">
+    <h1>感謝訂購</h1>
+    <div class="order-info">
+      <p>您的訂單已經完成。您的訂單編號為<strong>{{ order.no }}</strong></p><br />
+      <p>我們將儘快為您安排出貨。</p>
+    </div>
+  </div>
+</div>
+{% endblock %}

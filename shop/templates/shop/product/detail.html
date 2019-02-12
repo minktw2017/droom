@@ -1,0 +1,94 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %}
+  {% if product %}{{ product.name }}{% else %}商品{% endif %}
+{% endblock %}
+
+{% block content %}
+ <div class="grid-container grid-container-padded">
+   <div class="grid-x grid-margin-x">
+     <div class="cell small-12 nav-bar">
+       <h2><a href="/">全部商品</a> / {% if parent_category %}
+        <a href="{{ parent_category.get_absolute_url }}">{{ parent_category.name }}</a> / {% endif %}
+        <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
+      </h2>
+      <h3>{% if category %}{{ category.name }}{% else %}全部商品{% endif %}</h3>
+      <hr>
+     </div>
+     <div class="cell small-12 medium-3">
+       <!-- sideMenu Start -->
+       <script>
+         $( document ).ready(function() {
+           var category =  "#{{ parent }}";
+           $("#{{ parent }}").children('ul.sub-Menu').show();
+           $("#{{ parent }}").children('i').removeClass('fi-plus');
+           $("#{{ parent }}").children('i').addClass('fi-minus');
+          });
+       </script>
+       <div class="menu hide-for-small-only">
+         <div class="first-Menu">
+           <a href="{% url "shop:product_list" %}">全部商品</a>
+         </div>
+         {% for c in categories %}
+         <div class="first-Menu" id="{{ c.slug }}">
+           <i class="fi-plus float-right"></i>
+           <a href="{{ c.get_absolute_url }}"{% if c.slug == web_path %} class="selected"{% endif %}>
+             {{ c.name }}</a>
+           <ul class="sub-Menu">
+             {% for child in c.children.all %}
+             <li><a href="{{ child.get_absolute_url }}"{% if child.slug == web_path %} class="selected"{% endif %}>
+               {{ child.name }}</a></li>
+             {% endfor %}
+           </ul>
+         </div>
+         {% endfor %}
+       </div>
+     </div>
+      <!-- sideMenu End -->
+
+      <!-- Product-list Start-->
+     <div class="cell small-12 medium-9">
+       <div class="grid-container">
+         <div class="grid-x grid-margin-x">
+           <div class="cell small-12 medium-6">
+             <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}" alt="{{ product.name }}">
+           </div>
+           <div class="cell small-12 medium-6">
+             <div class="grid-y grid-margin-y">
+               <div class="cell item-intro">
+                 <h2>{{ product.name }}</h2><br />
+                 <p>${{ product.price }}</p><br />
+               </div>
+               <div class="cell">
+                 <form action="{% url "cart:cart_add" product.id %}" method="post">
+                   {{ cart_product_form }}
+                   {% csrf_token %}
+                   <input type="submit" value="加到購物車">
+                 </form>
+               </div>
+               <div class="cell">
+                 <p>此商品已被瀏覽：{{ product.views }}次</p>
+               </div>
+             </div>
+           </div>
+         </div>
+         <hr>
+         <div class="grid-y grid-margin-y">
+           <div class="cell item-detail">
+             <div class="description">
+               {{ product.description|linebreaksbr }}
+             </div>
+             <hr>
+             <div class="cell item-images">
+               {% for image in images %}
+               <img src="{{ image.image.url }}" alt="{{ product.name }}">
+               {% endfor %}
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>
+{% endblock %}

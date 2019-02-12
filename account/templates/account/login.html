@@ -1,0 +1,13 @@
+{% extends "shop/base.html" %}
+
+{% block title %}登入{% endblock %}
+
+{% block content %}
+  <h1>登入</h1>
+  <p>請填入以下資訊以登入網站：</p>
+  <form action="{%url 'login' %}" method="post">
+    {{ form.as_p }}
+    {% csrf_token %}
+    <p><input type="submit" value="登入"></p>
+  </form>
+{% endblock %}

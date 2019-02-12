@@ -1,0 +1,32 @@
+{% extends "shop/base.html" %}
+
+{% block title %}訂單資訊{% endblock %}
+
+{% block content %}
+<div class="grid-container grid-container-padded">
+  <div class="grid-x grid-margin-x">
+    <div class="cell small-12 medium-6 float-right">
+      <div class="order-info">
+      <h3>訂購商品</h3>
+      <ul>
+        {% for item in cart %}
+        <li>{{ item.quantity }} x {{ item.product.name }}
+          <span>${{ item.total_price }}</span>
+        </li>
+        {% endfor %}
+      </ul>
+      <hr>
+      <p>總計： ${{ cart.get_total_price }}</p>
+      </div>
+    </div>
+    <div class="cell small-12 medium-6 float-left buyer-info">
+      <h1>訂購人資訊</h1>
+      <form action="." method="post" class="order-form">
+      {{ form.as_p }}
+      <p><input type="submit" value="訂單確認"></p>
+      {% csrf_token %}
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
