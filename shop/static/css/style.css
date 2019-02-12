@@ -1,0 +1,328 @@
+/* reset browser styles */
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp,small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, img {
+	display: block;
+}
+body {
+  line-height: 1.2;
+  font-family: 'Noto Sans TC', sans-serif;
+}
+ol {
+	padding-left: 1.4em;
+	list-style: decimal;
+}
+ul {
+	padding-left: 1.4em;
+	list-style: square;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* end reset browser styles */
+
+/*=============================================
+=            Section Top-bar block            =
+=============================================*/
+
+.top-bar-color {
+	/*background: rgb(250, 187, 217);*/
+	background: #ee5a24;
+}
+
+.logo {
+	margin: 0 auto;
+}
+
+.logo h2 a {
+	line-height: 1.2;
+	font-size: 1.6em;
+	font-family: 'Noto Sans TC', sans-serif;
+	font-weight: bold;
+	color: #FFF;
+}
+
+.cart i {
+  font-size: 1.3em;
+}
+
+.cart a {
+  color: #fff;
+}
+
+.cart .badge-color {
+  background: #E03C8A;
+}
+
+.cart ul {
+  list-style : none;
+  padding-right: 1rem;
+	/*background: rgb(250, 187, 217);*/
+	background: #ee5a24;
+}
+
+.cart ul li {
+  display: inline-block;
+}
+
+/*=====  End of Section Top-bar block  ======*/
+
+/*=============================================
+=            Section first-line block            =
+=============================================*/
+
+.first-line h2 {
+  line-height: 1.2;
+	font-size: 1.2em;
+	font-family: 'Noto Sans TC', sans-serif;
+	padding-top: 5px;
+}
+
+/*=====  End of Section first-line block  ======*/
+
+/*=============================================
+=            Section sideMenu block            =
+=============================================*/
+
+
+
+/*=====  End of Section sideMenu block  ======*/
+
+/*=============================================
+=            Section Product-list block            =
+=============================================*/
+
+.first-Menu {
+  white-space:nowrap;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	/*background: rgb(250, 187, 217);*/
+	background: #ee5a24;
+	border-bottom: 1px solid #FFF;
+}
+
+.first-Menu a, i {
+	color: #fff;
+	text-align: center;
+}
+
+.first-Menu a:hover {
+	color: #000;
+}
+
+.first-Menu i {
+	color: #fff;
+	text-align: center;
+	position: relative;
+  top: 9.5px;
+  right: 9.5px;
+}
+
+.first-Menu i:hover {
+	color: #000;
+}
+
+.first-Menu ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+
+.first-Menu li a {
+	color: #fff;
+}
+
+.first-Menu li a:hover {
+	color: #000;
+}
+
+.sub-Menu {
+	display: none;
+	width: 100%;
+	background: #ed855f;
+	text-align: center;
+}
+
+.sub-Menu a {
+	font-size: 14px;
+}
+
+.selected {
+  background: #ed3f00;
+}
+
+.nav-bar a {
+	font-family: 'Noto Sans TC', sans-serif;
+	font-weight: 200;
+  color: #ed3f00;
+}
+
+.nav-bar h3 {
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 1.2em;
+  color: #363433;
+}
+
+/*=====  End of Section Product-list block  ======*/
+
+/*=============================================
+=            Section item-box block            =
+=============================================*/
+
+.itembox {
+	height: 330px;
+}
+
+.item-title {
+	height: 40px;
+	overflow: hidden;
+}
+
+.item-title a {
+  color: #ee5a24;
+}
+
+.itembox p {
+  color: #24b7ed;
+}
+
+.btn-buy {
+	/*background: rgb(250, 187, 217);*/
+	background: #ee5a24;
+}
+
+.btn-buy:hover {
+	background: #ff7f50;
+}
+
+a.thumbnail:hover {
+  box-shadow: 0 0 6px 1px rgba(238,90,36,0.5)
+}
+
+/*=====  End of Section item-box block  ======*/
+
+/*=============================================
+=            Section product-intro block            =
+=============================================*/
+
+#id_quantity {
+  width: 15%;
+}
+
+.item-intro {
+  font-family: 'Noto Sans TC', sans-serif;
+  line-height: 1.2;
+	font-size: 1.2em;
+}
+
+.item-intro h2 {
+  font-family: 'Noto Sans TC', sans-serif;
+  line-height: 1.2;
+	font-size: 1.4em;
+	color: #363433;
+}
+
+/*=====  End of Section comment block  ======*/
+
+/*=============================================
+=            Section item-detail block            =
+=============================================*/
+
+.item-images img {
+  margin: 0 auto;
+}
+
+.description {
+  color: #363433;
+}
+
+/*=====  End of Section item-detail block  ======*/
+
+/*=============================================
+=            Section CART block            =
+=============================================*/
+
+thead tr th {
+  width: 15%;
+  text-align: center;
+}
+
+thead tr th:nth-child(2) {
+  width: 25%;
+}
+
+th {
+  text-align: center;
+}
+
+tbody tr td {
+  width: 15%;
+}
+
+td {
+  vertical-align: middle;
+  text-align: center;
+}
+
+tbody tr td:nth-child(2) {
+  width: 25%;
+}
+
+.total {
+  color: red;
+}
+
+tbody tr td form {
+  margin: 0;
+  padding: 0;
+}
+
+tbody tr td form select#id_quantity {
+  width: 50%;
+}
+
+td input[type="submit"] {
+  font-size:12px;
+  color: #fff;
+	/*background: rgb(250, 187, 217);*/
+	background: #ee5a24;
+}
+
+/*=====  End of Section CART block  ======*/
+
+/*=============================================
+=            Section order block            =
+=============================================*/
+
+.order-info ul ,.order-form li {
+  list-style: None;
+}
+
+/*=====  End of Section order block  ======*/
+
+/*=============================================
+=            Section pagination block            =
+=============================================*/
+
+.pagination .page-color {
+	/*background: rgb(250, 187, 217);*/
+	background: #ee5a24;
+}
+
+/*=====  End of Section pagination block  ======*/
