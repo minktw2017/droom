@@ -24,3 +24,4 @@ shop/migrations/
 shop/static/css/base.css
 shop/static/css/styles.css
 shop/tests.py
+requirements.txt
