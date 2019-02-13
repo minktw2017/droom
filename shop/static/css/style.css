@@ -321,8 +321,17 @@ td input[type="submit"] {
 =============================================*/
 
 .pagination .page-color {
+	border: 1px solid #000;
 	/*background: rgb(250, 187, 217);*/
 	background: #ee5a24;
+}
+
+.pagination .page-border {
+	border: 1px solid #000;
+}
+
+.page-border .fi-rewind, .page-border .fi-fast-forward {
+	color: #000;
 }
 
 /*=====  End of Section pagination block  ======*/
