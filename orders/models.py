@@ -18,8 +18,8 @@ class Order(models.Model):
     )
 
     def number():
-        no = Order.objects.latest('id').id + 1
-        return "CMO-" + str(no).zfill(6)
+        order_no = Order.objects.latest('id').id + 1
+        return "CMO-" + str(order_no).zfill(6)
 
     no = models.CharField(max_length=20,
                           db_index=True,

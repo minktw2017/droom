@@ -5,7 +5,6 @@ from .models import Category, ProductImage, Product, Supplier
 
 
 # Register your models here.
-# 分類管理
 class CategoryAdmin(admin.ModelAdmin):
     """ CategoryAdmin Structure """
     list_display = ('id', 'name', 'attr', 'slug', 'parent', 'ordering')
@@ -14,7 +13,6 @@ class CategoryAdmin(admin.ModelAdmin):
 admin.site.register(Category, CategoryAdmin)
 
 
-# 商品圖片管理
 class ProductImageInLine(admin.StackedInline):
     """ ProductImageInLine Structure """
     model = ProductImage
@@ -29,7 +27,6 @@ class ProductImageInLine(admin.StackedInline):
     product_image.allow_tags = True
 
 
-# 商品圖片管理
 class ProductImageAdmin(admin.ModelAdmin):
     """ ProductImage Structure """
     list_display = ('image_data', 'image', 'ordering')
@@ -38,7 +35,6 @@ class ProductImageAdmin(admin.ModelAdmin):
 admin.site.register(ProductImage, ProductImageAdmin)
 
 
-# 供應商管理
 class SupplierInLine(admin.TabularInline):
     """ SupplierInLine Structure """
     model = Supplier
@@ -57,10 +53,10 @@ class SupplierAdmin(admin.ModelAdmin):
 admin.site.register(Supplier, SupplierAdmin)
 
 
-# 商品管理
 class ProductAdmin(admin.ModelAdmin):
     """ ProductAdmin Structure """
     ordering = ['-id']
+    search_fields = ('no', 'name',)
     readonly_fields = ('updated',)
     list_display = ('id',
                     'no',

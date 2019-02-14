@@ -1,4 +1,7 @@
 """ Main structure """
+from io import BytesIO
+from wand.image import Image
+from django.core.files.base import ContentFile
 from django.db import models
 from django.core.urlresolvers import reverse
 
@@ -40,10 +43,13 @@ class Category(models.Model):
         return reverse('shop:product_list_by_category',
                        args=[self.slug])
 
+def thumb_folder(instance, filename):
+    """ Generate thumb folder """
+    return '/'.join(['thumbs', instance.no, filename])
 
 class Product(models.Model):
     """ Product structure """
-    def number(self):
+    def number():
         """ Generate Porduct No """
         product_no = Product.objects.latest('id').id + 1
         return "CMD-" + str(product_no).zfill(9)
@@ -66,7 +72,7 @@ class Product(models.Model):
                               verbose_name="商品主圖")
     thumbnail = models.ImageField(null=True,
                                   blank=True,
-                                  upload_to='thumbs',
+                                  upload_to=thumb_folder,
                                   default='',
                                   verbose_name="商品縮圖")
     description = models.TextField(blank=True,
@@ -92,6 +98,36 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        """ Overridding save method """
+        if self.thumbnail == "":
+            if not self.make_thumbnail():
+                # set to a default thumbnail
+                raise Exception('Could not create thumbnail')
+
+        super(Product, self).save(*args, **kwargs)
+
+    def make_thumbnail(self):
+        """ Generate thumbnail """
+        image = Image(file=self.image)
+        image.resize(220, 220)
+
+        thumb_name, thumb_extension = str(self.image).split('/')[-1].split('.')
+
+        thumb_filename = thumb_name + '_thumb.' + thumb_extension
+
+        # Save thumbnail to in-memory file as StringIO
+        temp_thumb = BytesIO()
+        image.save(file=temp_thumb)
+        temp_thumb.seek(0)
+
+        # set save=False, otherwise it will run in an infinite loop
+        self.thumbnail.save(thumb_filename, ContentFile(temp_thumb.read()), save=False)
+        temp_thumb.close()
+        image.close()
+
+        return True
 
     def get_absolute_url(self):
         """ Get absolute url """
