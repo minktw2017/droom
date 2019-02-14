@@ -1,9 +1,11 @@
+""" Main structure """
 from django.db import models
 from django.core.urlresolvers import reverse
 
 
 # Create your models here.
 class Category(models.Model):
+    """ Category structure """
     name = models.CharField(max_length=200,
                             db_index=True,
                             verbose_name="商品分類")
@@ -34,15 +36,17 @@ class Category(models.Model):
         return self.name
 
     def get_absolute_url(self):
+        """ Get absolute url """
         return reverse('shop:product_list_by_category',
                        args=[self.slug])
 
 
 class Product(models.Model):
-
-    def number():
-        no = Product.objects.latest('id').id + 1
-        return "CMD-" + str(no).zfill(9)
+    """ Product structure """
+    def number(self):
+        """ Generate Porduct No """
+        product_no = Product.objects.latest('id').id + 1
+        return "CMD-" + str(product_no).zfill(9)
 
     no = models.CharField(max_length=20,
                           db_index=True,
@@ -60,6 +64,11 @@ class Product(models.Model):
                               upload_to='products/%Y/%m/%d',
                               default='products/no_image.png',
                               verbose_name="商品主圖")
+    thumbnail = models.ImageField(null=True,
+                                  blank=True,
+                                  upload_to='thumbs',
+                                  default='',
+                                  verbose_name="商品縮圖")
     description = models.TextField(blank=True,
                                    verbose_name="商品描述")
     price = models.DecimalField(max_digits=10, decimal_places=0,
@@ -85,14 +94,17 @@ class Product(models.Model):
         return self.name
 
     def get_absolute_url(self):
+        """ Get absolute url """
         return reverse('shop:product_detail',
                        args=[self.id, self.no])
 
     def increase_views(self):
+        """ Views function """
         self.views += 1
         self.save(update_fields=['views'])
 
     def image_data(self):
+        """ Generate thumbnail in admin """
         return '<img src="{}" width="100px"/>'.format(self.image.url)
 
     image_data.allow_tags = True
@@ -100,6 +112,7 @@ class Product(models.Model):
 
 
 class ProductImage(models.Model):
+    """ ProductImage structure """
     product = models.ForeignKey(Product,
                                 related_name='product_images',
                                 on_delete=models.CASCADE,
@@ -117,6 +130,7 @@ class ProductImage(models.Model):
         verbose_name_plural = "商品圖片"
 
     def image_data(self):
+        """ Generate thumbnail in admin """
         return '<img src="{}" width="100px"/>'.format(self.image.url)
 
     image_data.allow_tags = True
@@ -127,6 +141,7 @@ class ProductImage(models.Model):
 
 
 class ProductVideo(models.Model):
+    """ ProductVideo structure """
     product = models.ForeignKey(Product,
                                 related_name='product_videos',
                                 on_delete=models.CASCADE,
@@ -146,6 +161,7 @@ class ProductVideo(models.Model):
 
 
 class Supplier(models.Model):
+    """ Supplier structure """
     SUPPLIER_CHOICES = (
         ('000', '自批貨'),
         ('001', '大盤大'),

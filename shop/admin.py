@@ -1,3 +1,4 @@
+""" Admin Structure """
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 from .models import Category, ProductImage, Product, Supplier
@@ -6,6 +7,7 @@ from .models import Category, ProductImage, Product, Supplier
 # Register your models here.
 # 分類管理
 class CategoryAdmin(admin.ModelAdmin):
+    """ CategoryAdmin Structure """
     list_display = ('id', 'name', 'attr', 'slug', 'parent', 'ordering')
 
 
@@ -14,12 +16,14 @@ admin.site.register(Category, CategoryAdmin)
 
 # 商品圖片管理
 class ProductImageInLine(admin.StackedInline):
+    """ ProductImageInLine Structure """
     model = ProductImage
     fields = ['product_image', 'image', 'ordering']
     readonly_fields = ['product_image']
     extra = 0
 
     def product_image(self, obj):
+        """ Generate thumbnail in Admin """
         return mark_safe('<img src="{}" width="100px"/>'.format(obj.image.url))
 
     product_image.allow_tags = True
@@ -27,6 +31,7 @@ class ProductImageInLine(admin.StackedInline):
 
 # 商品圖片管理
 class ProductImageAdmin(admin.ModelAdmin):
+    """ ProductImage Structure """
     list_display = ('image_data', 'image', 'ordering')
 
 
@@ -35,6 +40,7 @@ admin.site.register(ProductImage, ProductImageAdmin)
 
 # 供應商管理
 class SupplierInLine(admin.TabularInline):
+    """ SupplierInLine Structure """
     model = Supplier
     readonly_fields = ('updated',)
     fields = ['supplier', 'no', 'url', 'available', 'updated']
@@ -43,6 +49,7 @@ class SupplierInLine(admin.TabularInline):
 
 
 class SupplierAdmin(admin.ModelAdmin):
+    """ Supplier Structure """
     list_display = ('supplier', 'no', 'url', 'available', 'updated')
     fields = ['supplier', 'no', 'url', 'available']
 
@@ -52,6 +59,7 @@ admin.site.register(Supplier, SupplierAdmin)
 
 # 商品管理
 class ProductAdmin(admin.ModelAdmin):
+    """ ProductAdmin Structure """
     ordering = ['-id']
     readonly_fields = ('updated',)
     list_display = ('id',
@@ -67,7 +75,8 @@ class ProductAdmin(admin.ModelAdmin):
             'fields': (('no', 'product_image'),)
         }),
         (None, {
-            'fields': ('name', 'image', 'category', 'description',
+            'fields': ('name', 'image', 'thumbnail',
+                       'category', 'description',
                        ('price', 'stock', 'views'), 'available'),
         }),
     )
@@ -75,6 +84,7 @@ class ProductAdmin(admin.ModelAdmin):
     readonly_fields = ('no', 'product_image',)
 
     def product_image(self, obj):
+        """ Generate thumbnail in Admin """
         return mark_safe('<img src="{}" width="125px"/>'.format(obj.image.url))
 
     product_image.allow_tags = True
