@@ -47,6 +47,14 @@ def thumb_folder(instance, filename):
     """ Generate thumb folder """
     return '/'.join(['thumbs', instance.no, filename])
 
+def image_folder(instance, filename):
+    """ Generate thumb folder """
+    return '/'.join(['products', instance.no, filename])
+
+def images_folder(instance, filename):
+    """ Generate thumb folder """
+    return '/'.join(['products', instance.product.no, filename])
+
 class Product(models.Model):
     """ Product structure """
     def number():
@@ -67,7 +75,7 @@ class Product(models.Model):
                                       verbose_name="商品類別")
     image = models.ImageField(null=True,
                               blank=True,
-                              upload_to='products/%Y/%m/%d',
+                              upload_to=image_folder,
                               default='products/no_image.png',
                               verbose_name="商品主圖")
     thumbnail = models.ImageField(null=True,
@@ -153,7 +161,7 @@ class ProductImage(models.Model):
                                 related_name='product_images',
                                 on_delete=models.CASCADE,
                                 verbose_name="商品")
-    image = models.ImageField(upload_to='products/%Y/%m/%d',
+    image = models.ImageField(upload_to=images_folder,
                               null=True,
                               blank=True,
                               verbose_name="圖片")
