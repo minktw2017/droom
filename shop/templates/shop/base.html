@@ -21,6 +21,7 @@
 <body>
 
   <div class ="top-bar top-bar-color">
+    <i class="fi-list show-for-small-only" id="mobile-list"></i>
     <div class="logo"><h2><a href="/">網站Logo</a></div></h2>
     <div class="cart">
       {% with total_items=cart|length %}
@@ -48,7 +49,7 @@
   </footer>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script>
-    $('i').click(function () {
+    $('i#side').click(function () {
       if ($(this).parent().children('ul.sub-Menu').css('display') == 'none') {
         $(this).parent().children('ul.sub-Menu').show();
         $(this).removeClass('fi-plus');
@@ -58,6 +59,9 @@
         $(this).removeClass('fi-minus');
         $(this).addClass('fi-plus');
       }
+    });
+    $('i#mobile-list').click(function () {
+      $('div.mobile-menu').toggle();
     })
   </script>
 </body>

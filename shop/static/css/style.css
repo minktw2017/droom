@@ -79,6 +79,10 @@ table {
   display: inline-block;
 }
 
+i#mobile-list {
+	font-size: 150%;
+}
+
 /*=====  End of Section Top-bar block  ======*/
 
 /*=============================================
@@ -177,6 +181,17 @@ table {
   font-family: 'Noto Sans TC', sans-serif;
   font-size: 1.2em;
   color: #363433;
+}
+
+.mobile-menu {
+	display: none;
+}
+
+.mobile-menu i {
+	color: #fff;
+	text-align: center;
+	position: relative;
+	top: 0px;
 }
 
 /*=====  End of Section Product-list block  ======*/
