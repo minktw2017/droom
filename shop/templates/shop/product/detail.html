@@ -6,6 +6,24 @@
 {% endblock %}
 
 {% block content %}
+<div class="mobile-menu show-for-small-only">
+  <div class="first-Menu">
+    <a href="{% url "shop:product_list" %}">全部商品</a>
+  </div>
+  {% for c in categories %}
+  <div class="first-Menu" id="{{ c.slug }}">
+    <i class="fi-plus float-right" id="side"></i>
+    <a href="{{ c.get_absolute_url }}"{% if c.slug == web_path %} class="selected"{% endif %}>
+      {{ c.name }}</a>
+    <ul class="sub-Menu">
+      {% for child in c.children.all|dictsort:"ordering" %}
+      <li><a href="{{ child.get_absolute_url }}"{% if child.slug == web_path %} class="selected"{% endif %}>
+        {{ child.name }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endfor %}
+</div>
  <div class="grid-container grid-container-padded">
    <div class="grid-x grid-margin-x">
      <div class="cell small-12 nav-bar">
@@ -18,21 +36,13 @@
      </div>
      <div class="cell small-12 medium-3">
        <!-- sideMenu Start -->
-       <script>
-         $( document ).ready(function() {
-           var category =  "#{{ parent }}";
-           $("#{{ parent }}").children('ul.sub-Menu').show();
-           $("#{{ parent }}").children('i').removeClass('fi-plus');
-           $("#{{ parent }}").children('i').addClass('fi-minus');
-          });
-       </script>
        <div class="menu hide-for-small-only">
          <div class="first-Menu">
            <a href="{% url "shop:product_list" %}">全部商品</a>
          </div>
          {% for c in categories %}
          <div class="first-Menu" id="{{ c.slug }}">
-           <i class="fi-plus float-right"></i>
+           <i class="fi-plus float-right" id="side"></i>
            <a href="{{ c.get_absolute_url }}"{% if c.slug == web_path %} class="selected"{% endif %}>
              {{ c.name }}</a>
            <ul class="sub-Menu">
@@ -91,4 +101,12 @@
      </div>
    </div>
  </div>
+ <script>
+  $( document ).ready(function() {
+    var category =  "#{{ parent }}";
+    $("#{{ parent }}").children('ul.sub-Menu').show();
+    $("#{{ parent }}").children('i').removeClass('fi-plus');
+    $("#{{ parent }}").children('i').addClass('fi-minus');
+   });
+</script>
 {% endblock %}
