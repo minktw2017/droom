@@ -21,7 +21,7 @@ def product_list(request, category_slug=None):
     object_list = Product.objects.filter(available=True).order_by('-id')
     
     # 設定分頁
-    paginator = Paginator(object_list, 40)
+    paginator = Paginator(object_list, 36)
     page = request.GET.get('page')
     try:
         products = paginator.page(page)

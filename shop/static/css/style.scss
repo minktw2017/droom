@@ -1,97 +1,50 @@
-$primary-color: #F75C2F;
-$primary-title: #666666;
+@import 'rest';
+@import 'config';
 
-/* reset browser styles */
-html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  vertical-align: baseline;
-}
-
-article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, img {
-  display: block;
-}
-
-body {
-  line-height: 1.2;
-  font-family: 'Noto Sans TC', sans-serif;
-}
-
-ol {
-  padding-left: 1.4em;
-  list-style: decimal;
-}
-
-ul {
-  padding-left: 1.4em;
-  list-style: square;
-}
-
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
-* {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-}
-
-/* end reset browser styles */
 /*=============================================
 =            Section Top-bar block            =
 =============================================*/
-.top-bar-color {
-  /*background: rgb(250, 187, 217);*/
-  background: $primary-color;
-}
-
-.title-bar {
-  background: $primary-color;
-}
-
-.off-canvas {
-  background: $primary-color;
+.top-bar-color,
+.title-bar,
+.off-canvas
+{
+  background: $secondary-color;
 }
 
 .logo {
   margin: 0 auto;
+
+  h2 a {
+    line-height: 1.2;
+    font-size: 1.8em;
+    font-family: $main-font;
+    font-weight: bold;
+    color: #FFF;
+  }
 }
 
-.logo h2 a {
-  line-height: 1.2;
-  font-size: 1.8em;
-  font-family: 'Noto Sans TC', sans-serif;
-  font-weight: bold;
-  color: #FFF;
-}
+.cart {
+  i {
+    font-size: 1.3em;
+  }
 
-.cart i {
-  font-size: 1.3em;
-}
+  a {
+    color: #fff;
+  }
+  
+  .badge-color {
+    background: #E03C8A;
+  }
 
-.cart a {
-  color: #fff;
-}
+  ul {
+    list-style: none;
+    padding-right: 1rem;
+    background: $secondary-color;
 
-.cart .badge-color {
-  background: #E03C8A;
-}
-
-.cart ul {
-  list-style: none;
-  padding-right: 1rem;
-  /*background: rgb(250, 187, 217);*/
-  background: $primary-color;
-}
-
-.cart ul li {
-  display: inline-block;
+    li {
+      display: inline-block;
+    }
+  }
 }
 
 i#mobile-list {
@@ -99,21 +52,24 @@ i#mobile-list {
 }
 
 /*=====  End of Section Top-bar block  ======*/
+
 /*=============================================
 =            Section first-line block            =
 =============================================*/
 .first-line h2 {
   line-height: 1.2;
-  font-size: 1.2em;
-  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 1.2rem;
+  font-family: $main-font;
   padding-top: 5px;
 }
 
 /*=====  End of Section first-line block  ======*/
+
 /*=============================================
 =            Section sideMenu block            =
 =============================================*/
 /*=====  End of Section sideMenu block  ======*/
+
 /*=============================================
 =            Section Product-list block            =
 =============================================*/
@@ -125,41 +81,29 @@ i#mobile-list {
   line-height: 2rem;
   background: $primary-color;
   border-bottom: 1px solid #FFF;
-}
 
-.first-Menu a, i {
-  color: #fff;
-  text-align: center;
-}
+  a, i, li {
+    color: #fff;
+    text-align: center;
+  }
 
-.first-Menu a:hover {
-  color: #000;
-}
+  a:hover,
+  i:hover,
+  li a:hover {
+    color: #000;
+  }
 
-.first-Menu i {
-  color: #fff;
-  text-align: center;
-  position: relative;
-  right: 9.5px;
-}
+  i {
+    position: relative;
+    right: 9.5px;
+  }
 
-.first-Menu i:hover {
-  color: #000;
-}
-
-.first-Menu ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-}
-
-.first-Menu li a {
-  color: #fff;
-}
-
-.first-Menu li a:hover {
-  color: #000;
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
 }
 
 .sub-Menu {
@@ -167,58 +111,61 @@ i#mobile-list {
   width: 100%;
   background: lighten($primary-color, 10%);
   text-align: center;
-}
 
-.sub-Menu a {
-  font-size: 14px;
+  a {
+    font-size: 14px;
+  }
 }
 
 .selected {
   background: darken($primary-color, 10%);
 }
 
-.nav-bar a {
-  font-family: 'Noto Sans TC', sans-serif;
-  font-weight: 200;
-  color: $primary-title;
-}
+.nav-bar {
+  a {
+    font-family: $main-font;
+    font-size: 1.2rem;
+    color: $primary-text;
+  }
 
-.nav-bar h3 {
-  font-family: 'Noto Sans TC', sans-serif;
-  font-size: 1.2em;
-  color: #363433;
+  h3 {
+    font-family: $main-font;
+    color: $primary-text;
+  }
 }
 
 .mobile-menu {
   display: none;
-}
 
-.mobile-menu i {
-  color: #fff;
-  text-align: center;
-  position: relative;
-  top: 0px;
+  i {
+    color: #fff;
+    text-align: center;
+    position: relative;
+    top: 0px;
+  }
 }
 
 /*=====  End of Section Product-list block  ======*/
+
 /*=============================================
 =            Section item-box block            =
 =============================================*/
 .itembox {
-  height: 330px;
+  height: 100%;
+
+  p {
+    color: $price-color;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
 }
 
 .item-title {
-  height: 40px;
+  height: 2.4rem;
   overflow: hidden;
-}
 
-.item-title a {
-  color: $primary-title;
-}
-
-.itembox p {
-  color: #24b7ed;
+  a {
+    color: $primary-text;
+  }
 }
 
 .btn-buy {
@@ -236,6 +183,7 @@ a.thumbnail:hover {
 }
 
 /*=====  End of Section item-box block  ======*/
+
 /*=============================================
 =            Section product-intro block            =
 =============================================*/
@@ -257,6 +205,7 @@ a.thumbnail:hover {
 }
 
 /*=====  End of Section comment block  ======*/
+
 /*=============================================
 =            Section item-detail block            =
 =============================================*/
@@ -269,6 +218,7 @@ a.thumbnail:hover {
 }
 
 /*=====  End of Section item-detail block  ======*/
+
 /*=============================================
 =            Section CART block            =
 =============================================*/
@@ -314,11 +264,11 @@ tbody tr td form select#id_quantity {
 td input[type="submit"] {
   font-size: 12px;
   color: #fff;
-  /*background: rgb(250, 187, 217);*/
   background: $primary-color;
 }
 
 /*=====  End of Section CART block  ======*/
+
 /*=============================================
 =            Section order block            =
 =============================================*/
@@ -327,6 +277,7 @@ td input[type="submit"] {
 }
 
 /*=====  End of Section order block  ======*/
+
 /*=============================================
 =            Section pagination block            =
 =============================================*/
@@ -345,4 +296,3 @@ td input[type="submit"] {
 }
 
 /*=====  End of Section pagination block  ======*/
-/*# sourceMappingURL=style.css.map */
