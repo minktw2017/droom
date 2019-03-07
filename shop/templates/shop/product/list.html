@@ -13,7 +13,7 @@
     $("div#{{ parent }}").children('ul.sub-Menu').show();
     $("div#{{ parent }}").children('i').removeClass('fi-plus');
     $("div#{{ parent }}").children('i').addClass('fi-minus');
-    });
+  });
 </script>
 
 <div class="off-canvas position-left" id="offCanvas" data-off-canvas>
@@ -71,6 +71,7 @@
       <!-- Product-list Start-->
     <div class="cell small-12 medium-9">
       <div class="grid-container">
+        {% include "pagination.html" with page=products %}
         <div class="grid-x grid-margin-x grid-margin-y">
         {% for product in products %}
           <div class="cell small-6 medium-3 itembox">
@@ -82,7 +83,7 @@
             <p>
               NT${{ product.price }}
             </p>
-            <a href="{{ product.get_absolute_url }}" class="button expanded btn-buy">立即購買</a>
+            <a href="{{ product.get_absolute_url }}" class="button expanded btn-buy">商品詳情</a>
           </div>
         {% endfor %}
         <div class="cell small-12">

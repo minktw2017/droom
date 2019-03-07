@@ -2,7 +2,8 @@ $primary-color: #EE4D2D;
 $secondary-color: #C92E0E;
 $main-font: 'Noto Sans TC', sans-serif;
 $primary-text: #666666;
-$price-color: red;
+$price-color: darkred;
+$price-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
 @mixin grad {
   background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);

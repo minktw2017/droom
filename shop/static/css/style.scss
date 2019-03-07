@@ -71,7 +71,7 @@ i#mobile-list {
 /*=====  End of Section sideMenu block  ======*/
 
 /*=============================================
-=            Section Product-list block            =
+=            Section Product-list block          =
 =============================================*/
 .first-Menu {
   white-space: nowrap;
@@ -121,6 +121,10 @@ i#mobile-list {
   background: darken($primary-color, 10%);
 }
 
+
+/*=============================================
+=  Section Second Line of List block  =
+=============================================*/
 .nav-bar {
   a {
     font-family: $main-font;
@@ -134,6 +138,7 @@ i#mobile-list {
   }
 }
 
+/* End of Section Second Line of List block */
 .mobile-menu {
   display: none;
 
@@ -169,7 +174,6 @@ i#mobile-list {
 }
 
 .btn-buy {
-  /*background: rgb(250, 187, 217);*/
   background: $primary-color;
 }
 
@@ -178,30 +182,62 @@ i#mobile-list {
 }
 
 a.thumbnail:hover {
-  -webkit-box-shadow: 0 0 6px 1px rgba(238, 90, 36, 0.5);
-          box-shadow: 0 0 6px 1px rgba(238, 90, 36, 0.5);
+  -webkit-box-shadow: 0 0 6px 1px rgba($secondary-color, 0.5);
+          box-shadow: 0 0 6px 1px rgba($secondary-color, 0.5);
 }
 
 /*=====  End of Section item-box block  ======*/
 
 /*=============================================
-=            Section product-intro block            =
+=            Section product-intro block         =
 =============================================*/
 #id_quantity {
-  width: 15%;
+  width: 20%;
 }
 
 .item-intro {
-  font-family: 'Noto Sans TC', sans-serif;
+  position: relative;
+  font-family: $main-font;
   line-height: 1.2;
-  font-size: 1.2em;
+  font-size: 1.2rem;
+  font-weight: bold;
+
+  h2 {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: $primary-text;
+  }
+
+  p {
+    color: $price-color;
+    font-family: $price-font-family;
+    font-size: 0.9rem;
+  }
+
+    .line-through {
+      text-decoration: line-through;
+  }
 }
 
-.item-intro h2 {
-  font-family: 'Noto Sans TC', sans-serif;
-  line-height: 1.2;
-  font-size: 1.4em;
-  color: #363433;
+.categories {
+  font-size: 0.8rem;
+  margin-bottom: 5vh;
+
+  .all-categories {
+    width: 100%;
+    color: #fff;
+    margin: 0 0.1vw;
+    padding: 0 0.2vw;
+    background: lighten($primary-color, 0.5);
+    border: 0.1vw solid $primary-color;
+    border-radius: 5%;
+  }
+}
+
+.input-cart {
+  color: #FFF;
+  background: $primary-color;
+  border-color: lighten($primary-color, 0.5);
 }
 
 /*=====  End of Section comment block  ======*/
@@ -222,39 +258,29 @@ a.thumbnail:hover {
 /*=============================================
 =            Section CART block            =
 =============================================*/
-thead tr th {
-  width: 15%;
-  text-align: center;
+thead {
+  tr th {
+    text-align: center;
+  }
 }
 
-thead tr th:nth-child(2) {
-  width: 25%;
-}
+tbody {
+  td {
+    vertical-align: middle;
+    text-align: center;
 
-th {
-  text-align: center;
-}
-
-tbody tr td {
-  width: 15%;
-}
-
-td {
-  vertical-align: middle;
-  text-align: center;
-}
-
-tbody tr td:nth-child(2) {
-  width: 25%;
+    a {
+      color: $primary-color;
+    }
+    
+    &.price {
+      font-family: $price-font-family;
+    }
+  }
 }
 
 .total {
   color: red;
-}
-
-tbody tr td form {
-  margin: 0;
-  padding: 0;
 }
 
 tbody tr td form select#id_quantity {
@@ -265,6 +291,49 @@ td input[type="submit"] {
   font-size: 12px;
   color: #fff;
   background: $primary-color;
+  border-color: lighten($primary-color, 0.5);
+}
+
+a.cart-delete {
+
+  &:hover {
+    color: lighten($primary-color, 10%);
+  }
+}
+
+.cart {
+  background: $primary-color;
+
+  &:hover {
+    background: lighten($primary-color, 10%);
+    -webkit-box-shadow: 0 0 6px 1px rgba($secondary-color, 0.5);
+    box-shadow: 0 0 6px 1px rgba($secondary-color, 0.5);
+  }
+}
+
+h1.cart-title {
+  font-size: 1.2rem;
+  color: $primary-text;
+  font-family: $main-font;
+}
+
+@media screen and (max-width: 600px) {
+  .rwdtable {
+      border: 0;  
+
+      td {
+          display: block;
+          text-align: left;
+      }
+                          
+      td:before {
+          color: black;
+          padding-right: 1rem;
+          content: attr(data-label);
+          float: left;
+          font-weight: bold;
+      }
+  }
 }
 
 /*=====  End of Section CART block  ======*/

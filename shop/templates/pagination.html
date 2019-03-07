@@ -1,13 +1,13 @@
 <div>
   <ul class="pagination text-center">
+    <!-- {% if page.number|add:'-4' > 1 %}
+    <li class="pagination-previous">
+      <a href="?page={{ page.number|add:'-5' }}"></a>
+    </li>
+    {% endif %} -->
     {% if page.has_previous %}
     <li class="pagination-previous">
-      <a href="?page={{ page.previous_page_number }}"></a>
-    </li>
-    {% endif %}
-    {% if page.number|add:'-4' > 1 %}
-    <li class="page-border">
-      <a href="?page={{ page.number|add:'-5' }}"><i class="fi-rewind"></i></a>
+      <a href="?page={{ page.previous_page_number }}">上一頁</a>
     </li>
     {% endif %}
     {% for num in page.paginator.page_range %}
@@ -17,13 +17,13 @@
       <li class="page-border"><a href="?page={{ num }}"> {{ num }}</a></li>
       {% endif %}
     {% endfor %}
-    {% if page.paginator.num_pages > page.number|add:'4' %}
-    <li class="page-border">
-      <a href="?page={{ page.number|add:'5' }}"><i class="fi-fast-forward"></i></a>
-    </li>
-    {% endif %}
     {% if page.has_next %}
-    <li class="pagination-next"><a href="?page={{ page.next_page_number }}"></a></li>
+    <li class="pagination-next"><a href="?page={{ page.next_page_number }}">下一頁</a></li>
     {% endif %}
+    <!-- {% if page.paginator.num_pages > page.number|add:'4' %}
+    <li class="pagination-next">
+      <a href="?page={{ page.number|add:'5' }}"></a>
+    </li>
+    {% endif %} -->
   </ul>
 </div>
