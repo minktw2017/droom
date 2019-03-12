@@ -63,6 +63,22 @@ i#mobile-list {
   padding-top: 5px;
 }
 
+.search-btn {
+  height: 39px;
+  border: 1px solid #cacaca;
+  border-left: 0;
+  text-align: center;
+
+  button {
+    width: 100%;
+    height: 100%
+  }
+}
+
+i.fi-magnifying-glass {
+  font-size: larger;
+}
+
 /*=====  End of Section first-line block  ======*/
 
 /*=============================================
@@ -191,10 +207,6 @@ a.thumbnail:hover {
 /*=============================================
 =            Section product-intro block         =
 =============================================*/
-#id_quantity {
-  width: 20%;
-}
-
 .item-intro {
   position: relative;
   font-family: $main-font;
@@ -279,12 +291,21 @@ tbody {
   }
 }
 
+select#id_quantity {
+  width: 50%;
+  text-align-last: center;
+  @media screen and (max-width:768px) {
+    width: 100%;
+  }
+}
 .total {
   color: red;
 }
 
-tbody tr td form select#id_quantity {
-  width: 50%;
+@media screen and (min-width:480px) and (max-width: 768px) {
+  td.quantity {
+    width: 70px;
+  }
 }
 
 td input[type="submit"] {
@@ -311,10 +332,17 @@ a.cart-delete {
   }
 }
 
-h1.cart-title {
+.cart-title {
   font-size: 1.2rem;
   color: $primary-text;
   font-family: $main-font;
+}
+
+
+.cart-title-price {
+  font-size: 1.1rem;
+  color: red;
+  font-family: $price-font-family;
 }
 
 @media screen and (max-width: 600px) {

@@ -1,14 +1,16 @@
+'''Main Product View'''
 from django.shortcuts import render, get_object_or_404
-from .models import Category, Product, ProductImage
-from cart.forms import CartAddProductForm
+from django.db.models import Q
 from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
+from cart.forms import CartAddProductForm
+from .models import Category, Product, ProductImage
 
 
 # Create your views here.
-
 def product_list(request, category_slug=None):
+    '''Initialize the render Dictionary'''
     parent = None
     parent_category = None
     category = None
@@ -17,9 +19,9 @@ def product_list(request, category_slug=None):
     request.session["web_path"] = "home"
     web_path = request.session.get("web_path", default="none")
 
-    categories = Category.objects.filter(attr="first").order_by('ordering')
+    categories = Category.objects.filter(attr="first", available=True).order_by('ordering')
     object_list = Product.objects.filter(available=True).order_by('-id')
-    
+
     # 設定分頁
     paginator = Paginator(object_list, 36)
     page = request.GET.get('page')
@@ -46,7 +48,7 @@ def product_list(request, category_slug=None):
         request.session["parent"] = parent
         parent = request.session.get("parent", default="none")
             # 設定分頁
-        paginator = Paginator(object_list, 40)
+        paginator = Paginator(object_list, 36)
         page = request.GET.get('page')
         try:
             products = paginator.page(page)
@@ -63,15 +65,16 @@ def product_list(request, category_slug=None):
                    'page': page,
                    'web_path': web_path,
                    'parent': parent,
-                   'parent_category': parent_category,
-                   'children': children})
+                   'parent_category': parent_category
+                   })
 
 
 def product_detail(request, id, no):
+    '''Initialize the render Dictionary'''
     parent_category = None
     category = None
     parent = None
-    
+
     categories = Category.objects.filter(attr="first").order_by('ordering')
 
     product = get_object_or_404(Product,
@@ -93,7 +96,9 @@ def product_detail(request, id, no):
 
     cart_product_form = CartAddProductForm()
 
+    #增加商品瀏覽次數
     product.increase_views()
+
     images = ProductImage.objects.filter(product_id=id)
     return render(request,
                   'shop/product/detail.html',
@@ -105,3 +110,36 @@ def product_detail(request, id, no):
                    'parent_category': parent_category,
                    'cart_product_form': cart_product_form,
                    'images': images})
+
+def search(request):
+    ''' Define Search Function'''
+    template = 'shop/product/list.html'
+
+    categories = Category.objects.filter(attr="first").order_by('ordering')
+
+    query = request.GET.get('q')
+    if query:
+        results = Product.objects.filter(
+            Q(name__icontains=query) | Q(no__icontains=query)
+        )
+    else:
+        results = Product.objects.filter(available=True).order_by('-id')
+
+    paginator = Paginator(results, 36)
+    page = request.GET.get('page')
+
+    try:
+        products = paginator.page(page)
+    except PageNotAnInteger:
+        products = paginator.page(1)
+    except EmptyPage:
+        products = paginator.page(paginator.num_pages)
+
+    context = {
+        'products': products,
+        'categories': categories,
+        'page': page,
+        'query': query
+    }
+
+    return render(request, template, context)

@@ -7,7 +7,7 @@ from .models import Category, ProductImage, Product, Supplier
 # Register your models here.
 class CategoryAdmin(admin.ModelAdmin):
     """ CategoryAdmin Structure """
-    list_display = ('id', 'name', 'attr', 'slug', 'parent', 'ordering')
+    list_display = ('id', 'name', 'attr', 'slug', 'parent', 'ordering', 'available')
 
 
 admin.site.register(Category, CategoryAdmin)
@@ -22,7 +22,7 @@ class ProductImageInLine(admin.StackedInline):
 
     def product_image(self, obj):
         """ Generate thumbnail in Admin """
-        return mark_safe('<img src="{}" width="100px"/>'.format(obj.image.url))
+        return mark_safe('<img src="{}" width="100px"/>'.format(obj.thumbnail.url))
 
     product_image.allow_tags = True
 
@@ -81,7 +81,7 @@ class ProductAdmin(admin.ModelAdmin):
 
     def product_image(self, obj):
         """ Generate thumbnail in Admin """
-        return mark_safe('<img src="{}" width="125px"/>'.format(obj.image.url))
+        return mark_safe('<img src="{}" width="125px"/>'.format(obj.thumbnail.url))
 
     product_image.allow_tags = True
     product_image.short_description = '主圖預覽'

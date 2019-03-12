@@ -29,6 +29,8 @@ class Category(models.Model):
     ordering = models.IntegerField(
         default=100,
         verbose_name="顯示順序")
+    available = models.BooleanField(default=True,
+                                    verbose_name="顯示")
 
     class Meta:
         ordering = ('name',)
@@ -149,7 +151,7 @@ class Product(models.Model):
 
     def image_data(self):
         """ Generate thumbnail in admin """
-        return '<img src="{}" width="100px"/>'.format(self.image.url)
+        return '<img src="{}" width="100px"/>'.format(self.thumbnail.url)
 
     image_data.allow_tags = True
     image_data.short_description = '產品縮圖'
