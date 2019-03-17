@@ -1,0 +1,7 @@
+.top-bar-color { background: #FEDFE1; background: -webkit-linear-gradient(left, #FEDFE1, #F8C3CD); background: linear-gradient(to right, #FEDFE1, #F8C3CD); padding: 0; }
+
+.callout { background: #F8C3CD; background: -webkit-linear-gradient(left, #F8C3CD, #FEDFE1); background: linear-gradient(to right, #F8C3CD, #FEDFE1); }
+
+.list-btn { vertical-align: center; background-color: rgba(254, 223, 225, 0.5); }
+
+.list-btn i:hover { background-color: rgba(254, 223, 225, 0.5); }

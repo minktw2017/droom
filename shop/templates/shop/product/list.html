@@ -7,21 +7,22 @@
 
 {% block content %}
 {% if request.user.is_authenticated %}
+{% if parent %}
 <script src="{% static 'js/vendor/jquery.js' %}" type="text/javascript"></script>
 <script>
   $(document).ready(function() {
-      $("div#{{ parent }}").children('ul.sub-Menu').show();
-      $("div#{{ parent }}").children('i').removeClass('fi-plus');
-      $("div#{{ parent }}").children('i').addClass('fi-minus');
+    $("div#{{ parent }}").children('ul.sub-Menu').show();
+    $("div#{{ parent }}").children('i').removeClass('fi-plus');
+    $("div#{{ parent }}").children('i').addClass('fi-minus');
 });
 </script>
-
+{% endif %}
 <div class="off-canvas position-left" id="offCanvas" data-off-canvas>
   <div class="first-Menu">
     <a href="{% url "shop:product_list" %}">全部商品</a>
   </div>
   {% for c in categories %}
-    <div class="first-Menu" id="{{ c.slug }}">
+    <div class="first-Menu" {% if c.slug %}id="{{ c.slug }}"{% endif %}>
       <i class="fi-plus float-right" id="side"></i>
       <a href="{{ c.get_absolute_url }}"{% if c.slug == web_path %} class="selected"{% endif %}>
         {{ c.name }}</a>
@@ -66,7 +67,7 @@
           <a href="{% url "shop:product_list" %}">全部商品</a>
         </div>
         {% for c in categories %}
-        <div class="first-Menu" id="{{ c.slug }}">
+        <div class="first-Menu" {% if c.slug %}id="{{ c.slug }}"{% endif %}>
           <i class="fi-plus float-right" id="side"></i>
           <a href="{{ c.get_absolute_url }}"{% if c.slug == web_path %} class="selected"{% endif %}>
             {{ c.name }}</a>

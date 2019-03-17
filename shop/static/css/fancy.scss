@@ -1,0 +1,20 @@
+@import 'fancy_config';
+
+.top-bar-color {
+  @include gradient($primary-color, $secondary-color, 'horizontal');
+  padding: 0;
+  text-align: center;
+
+  .title {
+    text-align: center;
+  }
+
+  .list-btn {
+    background-color:rgba($primary-color, 0.5);
+  
+    &:hover {
+      background-color:rgba($primary-color, 0.5);
+    }
+  }
+  
+}

@@ -1,0 +1,10 @@
+{
+	"version": 3,
+	"file": "D:/myDjango1.11/myshop/shop/static/css/fancy.css",
+	"sources": [
+		"D:/myDjango1.11/myshop/shop/static/css/fancy.scss",
+		"D:/myDjango1.11/myshop/shop/static/css/_fancy_config.scss"
+	],
+	"names": [],
+	"mappings": "AAEA,AAAA,cAAc,CAAC,ECEX,UAAU,EAJE,OAAO,EASjB,UAAU,EAAE,+CAAuD,EACnE,UAAU,EAAE,2CAAmD,EDNnE,OAAO,EAAE,CAAC,EACV,UAAU,EAAE,MAAM,GAcnB;;AAjBD,AAKE,cALY,CAKZ,MAAM,CAAC,EACL,UAAU,EAAE,MAAM,GACnB;;AAPH,AASE,cATY,CASZ,SAAS,CAAC,EACR,gBAAgB,ECZJ,wBAAO,GDiBpB;;AAfH,AAYI,cAZU,CASZ,SAAS,AAGN,MAAM,CAAC,EACN,gBAAgB,ECfN,wBAAO,GDgBlB"
+}

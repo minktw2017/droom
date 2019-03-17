@@ -1,86 +1,54 @@
-$cm-primary-color: #ee5a24;
-
-/* reset browser styles */
-html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp,small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	vertical-align: baseline;
-}
-article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, img {
-	display: block;
-}
-body {
-  line-height: 1.2;
-  font-family: 'Noto Sans TC', sans-serif;
-}
-ol {
-	padding-left: 1.4em;
-	list-style: decimal;
-}
-ul {
-	padding-left: 1.4em;
-	list-style: square;
-}
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-/* end reset browser styles */
+@import 'rest';
+@import 'config';
 
 /*=============================================
 =            Section Top-bar block            =
 =============================================*/
-.top-bar-color {
-	background: black;
+.top-bar-color,
+.title-bar,
+.off-canvas
+{
+  background: $secondary-color;
 }
 
 .logo {
-	margin: 0 auto;
+  margin: 0 auto;
+
+  h2 a {
+    line-height: 1.2;
+    font-size: 1.8em;
+    font-family: $main-font;
+    font-weight: bold;
+    color: #FFF;
+  }
 }
 
-.logo h2 a {
-	line-height: 1.2;
-	font-size: 1.6em;
-	font-family: 'Noto Sans TC', sans-serif;
-	font-weight: bold;
-	color: #FFF;
-}
+.cart {
+  i {
+    font-size: 1.3em;
+  }
 
-.cart i {
-  font-size: 1.3em;
-}
+  a {
+    color: #fff;
+  }
+  
+  .badge-color {
+    background: #E03C8A;
+  }
 
-.cart a {
-  color: #fff;
-}
+  ul {
+    list-style: none;
+    padding-right: 1rem;
+    background: $secondary-color;
 
-.cart .badge-color {
-  background: #E03C8A;
-}
-
-.cart ul {
-  list-style : none;
-  padding-right: 1rem;
-	/*background: rgb(250, 187, 217);*/
-	background: #ee5a24;
-}
-
-.cart ul li {
-  display: inline-block;
+    li {
+      display: inline-block;
+    }
+  }
 }
 
 i#mobile-list {
-	font-size: 150%;
+  font-size: 150%;
 }
 
 /*=====  End of Section Top-bar block  ======*/
@@ -88,12 +56,27 @@ i#mobile-list {
 /*=============================================
 =            Section first-line block            =
 =============================================*/
-
 .first-line h2 {
   line-height: 1.2;
-	font-size: 1.2em;
-	font-family: 'Noto Sans TC', sans-serif;
-	padding-top: 5px;
+  font-size: 1.2rem;
+  font-family: $main-font;
+  padding-top: 5px;
+}
+
+.search-btn {
+  height: 39px;
+  border: 1px solid #cacaca;
+  border-left: 0;
+  text-align: center;
+
+  button {
+    width: 100%;
+    height: 100%
+  }
+}
+
+i.fi-magnifying-glass {
+  font-size: larger;
 }
 
 /*=====  End of Section first-line block  ======*/
@@ -101,97 +84,86 @@ i#mobile-list {
 /*=============================================
 =            Section sideMenu block            =
 =============================================*/
-
-
-
 /*=====  End of Section sideMenu block  ======*/
 
 /*=============================================
-=            Section Product-list block            =
+=            Section Product-list block          =
 =============================================*/
-
 .first-Menu {
-  white-space:nowrap;
-	margin: 0;
-	padding: 0;
-	width: 100%;
-	/*background: rgb(250, 187, 217);*/
-	background: #ee5a24;
-	border-bottom: 1px solid #FFF;
-}
+  white-space: nowrap;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  line-height: 2rem;
+  background: $primary-color;
+  border-bottom: 1px solid #FFF;
 
-.first-Menu a, i {
-	color: #fff;
-	text-align: center;
-}
+  a, i, li {
+    color: #fff;
+    text-align: center;
+  }
 
-.first-Menu a:hover {
-	color: #000;
-}
+  a:hover,
+  i:hover,
+  li a:hover {
+    color: #000;
+  }
 
-.first-Menu i {
-	color: #fff;
-	text-align: center;
-	position: relative;
-  top: 9.5px;
-  right: 9.5px;
-}
+  i {
+    position: relative;
+    right: 9.5px;
+  }
 
-.first-Menu i:hover {
-	color: #000;
-}
-
-.first-Menu ul {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	width: 100%;
-}
-
-.first-Menu li a {
-	color: #fff;
-}
-
-.first-Menu li a:hover {
-	color: #000;
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
 }
 
 .sub-Menu {
-	display: none;
-	width: 100%;
-	background: #ed855f;
-	text-align: center;
-}
+  display: none;
+  width: 100%;
+  background: lighten($primary-color, 10%);
+  text-align: center;
 
-.sub-Menu a {
-	font-size: 14px;
+  a {
+    font-size: 14px;
+  }
 }
 
 .selected {
-  background: #ed3f00;
+  background: darken($primary-color, 10%);
 }
 
-.nav-bar a {
-	font-family: 'Noto Sans TC', sans-serif;
-	font-weight: 200;
-  color: #ed3f00;
+
+/*=============================================
+=  Section Second Line of List block  =
+=============================================*/
+.nav-bar {
+  a {
+    font-family: $main-font;
+    font-size: 1.2rem;
+    color: $primary-text;
+  }
+
+  h3 {
+    font-family: $main-font;
+    color: $primary-text;
+  }
 }
 
-.nav-bar h3 {
-  font-family: 'Noto Sans TC', sans-serif;
-  font-size: 1.2em;
-  color: #363433;
-}
-
+/* End of Section Second Line of List block */
 .mobile-menu {
-	display: none;
-}
+  display: none;
 
-.mobile-menu i {
-	color: #fff;
-	text-align: center;
-	position: relative;
-	top: 0px;
+  i {
+    color: #fff;
+    text-align: center;
+    position: relative;
+    top: 0px;
+  }
 }
 
 /*=====  End of Section Product-list block  ======*/
@@ -199,58 +171,85 @@ i#mobile-list {
 /*=============================================
 =            Section item-box block            =
 =============================================*/
-
 .itembox {
-	height: 330px;
+  height: 100%;
+
+  p {
+    color: $price-color;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
 }
 
 .item-title {
-	height: 40px;
-	overflow: hidden;
-}
+  height: 2.4rem;
+  overflow: hidden;
 
-.item-title a {
-  color: #ee5a24;
-}
-
-.itembox p {
-  color: #24b7ed;
+  a {
+    color: $primary-text;
+  }
 }
 
 .btn-buy {
-	/*background: rgb(250, 187, 217);*/
-	background: #ee5a24;
+  background: $primary-color;
 }
 
 .btn-buy:hover {
-	background: #ff7f50;
+  background: lighten($primary-color, 10%);
 }
 
 a.thumbnail:hover {
-  box-shadow: 0 0 6px 1px rgba(238,90,36,0.5)
+  -webkit-box-shadow: 0 0 6px 1px rgba($secondary-color, 0.5);
+          box-shadow: 0 0 6px 1px rgba($secondary-color, 0.5);
 }
 
 /*=====  End of Section item-box block  ======*/
 
 /*=============================================
-=            Section product-intro block            =
+=            Section product-intro block         =
 =============================================*/
-
-#id_quantity {
-  width: 15%;
-}
-
 .item-intro {
-  font-family: 'Noto Sans TC', sans-serif;
+  position: relative;
+  font-family: $main-font;
   line-height: 1.2;
-	font-size: 1.2em;
+  font-size: 1.2rem;
+  font-weight: bold;
+
+  h2 {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: $primary-text;
+  }
+
+  p {
+    color: $price-color;
+    font-family: $price-font-family;
+    font-size: 0.9rem;
+  }
+
+    .line-through {
+      text-decoration: line-through;
+  }
 }
 
-.item-intro h2 {
-  font-family: 'Noto Sans TC', sans-serif;
-  line-height: 1.2;
-	font-size: 1.4em;
-	color: #363433;
+.categories {
+  font-size: 0.8rem;
+  margin-bottom: 5vh;
+
+  .all-categories {
+    width: 100%;
+    color: #fff;
+    margin: 0 0.1vw;
+    padding: 0 0.2vw;
+    background: lighten($primary-color, 0.5);
+    border: 0.1vw solid $primary-color;
+    border-radius: 5%;
+  }
+}
+
+.input-cart {
+  color: #FFF;
+  background: $primary-color;
+  border-color: lighten($primary-color, 0.5);
 }
 
 /*=====  End of Section comment block  ======*/
@@ -258,7 +257,6 @@ a.thumbnail:hover {
 /*=============================================
 =            Section item-detail block            =
 =============================================*/
-
 .item-images img {
   margin: 0 auto;
 }
@@ -272,51 +270,99 @@ a.thumbnail:hover {
 /*=============================================
 =            Section CART block            =
 =============================================*/
-
-thead tr th {
-  width: 15%;
-  text-align: center;
+thead {
+  tr th {
+    text-align: center;
+  }
 }
 
-thead tr th:nth-child(2) {
-  width: 25%;
+tbody {
+  td {
+    vertical-align: middle;
+    text-align: center;
+
+    a {
+      color: $primary-color;
+    }
+    
+    &.price {
+      font-family: $price-font-family;
+    }
+  }
 }
 
-th {
-  text-align: center;
+select#id_quantity {
+  width: 30%;
+  text-align-last: center;
+  @media screen and (max-width:812px) {
+    width: 100%;
+    text-align-last: center;
+  }
 }
-
-tbody tr td {
-  width: 15%;
-}
-
-td {
-  vertical-align: middle;
-  text-align: center;
-}
-
-tbody tr td:nth-child(2) {
-  width: 25%;
-}
-
 .total {
   color: red;
 }
 
-tbody tr td form {
-  margin: 0;
-  padding: 0;
-}
-
-tbody tr td form select#id_quantity {
-  width: 50%;
+@media screen and (min-width:480px) and (max-width: 768px) {
+  td.quantity {
+    width: 70px;
+  }
 }
 
 td input[type="submit"] {
-  font-size:12px;
+  font-size: 12px;
   color: #fff;
-	/*background: rgb(250, 187, 217);*/
-	background: #ee5a24;
+  background: $primary-color;
+  border-color: lighten($primary-color, 0.5);
+}
+
+a.cart-delete {
+
+  &:hover {
+    color: lighten($primary-color, 10%);
+  }
+}
+
+.cart {
+  background: $primary-color;
+
+  &:hover {
+    background: lighten($primary-color, 10%);
+    -webkit-box-shadow: 0 0 6px 1px rgba($secondary-color, 0.5);
+    box-shadow: 0 0 6px 1px rgba($secondary-color, 0.5);
+  }
+}
+
+.cart-title {
+  font-size: 1.2rem;
+  color: $primary-text;
+  font-family: $main-font;
+}
+
+
+.cart-title-price {
+  font-size: 1.1rem;
+  color: red;
+  font-family: $price-font-family;
+}
+
+@media screen and (max-width: 600px) {
+  .rwdtable {
+      border: 0;  
+
+      td {
+          display: block;
+          text-align: left;
+      }
+                          
+      td:before {
+          color: black;
+          padding-right: 1rem;
+          content: attr(data-label);
+          float: left;
+          font-weight: bold;
+      }
+  }
 }
 
 /*=====  End of Section CART block  ======*/
@@ -324,8 +370,7 @@ td input[type="submit"] {
 /*=============================================
 =            Section order block            =
 =============================================*/
-
-.order-info ul ,.order-form li {
+.order-info ul, .order-form li {
   list-style: None;
 }
 
@@ -334,19 +379,18 @@ td input[type="submit"] {
 /*=============================================
 =            Section pagination block            =
 =============================================*/
-
 .pagination .page-color {
-	border: 1px solid #000;
-	/*background: rgb(250, 187, 217);*/
-	background: #ee5a24;
+  border: 1px solid #000;
+  /*background: rgb(250, 187, 217);*/
+  background: $primary-color;
 }
 
 .pagination .page-border {
-	border: 1px solid #000;
+  border: 1px solid #000;
 }
 
 .page-border .fi-rewind, .page-border .fi-fast-forward {
-	color: #000;
+  color: #000;
 }
 
 /*=====  End of Section pagination block  ======*/

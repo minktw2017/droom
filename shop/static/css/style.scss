@@ -292,10 +292,11 @@ tbody {
 }
 
 select#id_quantity {
-  width: 50%;
+  width: 30%;
   text-align-last: center;
-  @media screen and (max-width:768px) {
+  @media screen and (max-width:812px) {
     width: 100%;
+    text-align-last: center;
   }
 }
 .total {

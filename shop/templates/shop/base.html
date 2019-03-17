@@ -25,14 +25,15 @@
     <div class="off-canvas-wrapper-inner" data-off-canvas-wrapper>
       <!-- This is the menu will slide in -->
       <div class="off-canvas-content" data-off-canvas-content>
-
         <div class ="top-bar top-bar-color">
           <div class="title-bar show-for-small-only">
             <div class="title-bar-left">
               <button class="menu-icon" type="button" data-open="offCanvas"></button>
             </div>
           </div>
-          <div class="logo"><h2><a href="/">網站Logo</a></div></h2>
+          <div class="logo">
+            <img src="../../static/img/logo_p.png" alt="樂器室">
+          </div>
           <div class="cart">
             {% with total_items=cart|length %}
             <a href="{% url "cart:cart_detail" %}">
@@ -48,8 +49,7 @@
             {% endwith %}
           </div>
         </div>
-
-        </div>
+      </div>
         {% block content %}
         {% endblock %}
         <footer>

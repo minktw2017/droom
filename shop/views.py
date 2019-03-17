@@ -143,3 +143,10 @@ def search(request):
     }
 
     return render(request, template, context)
+
+def index(request):
+    template = 'shop/product/index.html'
+    
+    context = {}
+
+    return render(request, template, context)

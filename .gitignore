@@ -116,3 +116,9 @@ static/css/styles.css
 static/admin/img/inline-delete.svg
 shop/static/css/style.css
 shop/static/css/style20190226.css
+static/js/vendor/what-input.js
+static/js/vendor/jquery.js
+static/js/vendor/foundation.min.js
+static/js/vendor/foundation.js
+static/js/app.js
+static/css/style20190226.css
