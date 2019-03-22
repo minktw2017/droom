@@ -19,7 +19,6 @@ class Category(models.Model):
     slug = models.SlugField(max_length=200,
                             db_index=True,
                             default='')
-
     parent = models.ForeignKey('self',
                                blank=True,
                                null=True,
@@ -238,3 +237,94 @@ class Supplier(models.Model):
 
     def __str__(self):
         return self.supplier
+
+
+class GoodsProduct(models.Model):
+    """ GoodsProduct structure """
+    def number():
+        """ Generate Porduct No """
+        product_no = GoodsProduct.objects.latest('id').id + 1
+        return "CMN-" + str(product_no).zfill(9)
+
+    no = models.CharField(max_length=20,
+                          db_index=True,
+                          blank=True,
+                          unique=True,
+                          default=number,
+                          verbose_name="商品編號")
+    name = models.CharField(max_length=200,
+                            db_index=True,
+                            verbose_name="商品名稱")
+    category = models.ManyToManyField(Category,
+                                      verbose_name="商品類別")
+    image = models.ImageField(null=True,
+                              blank=True,
+                              upload_to=image_folder,
+                              default='products/no_image.png',
+                              verbose_name="商品主圖")
+    description = models.TextField(blank=True,
+                                   verbose_name="商品描述")
+    price = models.DecimalField(max_digits=10, decimal_places=0,
+                                verbose_name="商品價格")
+    stock = models.PositiveIntegerField(default=0,
+                                        verbose_name="商品庫存")
+    available = models.BooleanField(default=True,
+                                    verbose_name="上/下架")
+    created = models.DateTimeField(auto_now_add=True,
+                                   verbose_name="建立日期")
+    updated = models.DateTimeField(auto_now=True,
+                                   verbose_name="最後修改日期")
+    views = models.PositiveIntegerField(default=0,
+                                        verbose_name="瀏覽次數")
+
+    class Meta:
+        ordering = ("name",)
+        verbose_name = "一般商品"
+        verbose_name_plural = "一般商品"
+
+
+    def get_absolute_url(self):
+        """ Get absolute url """
+        return reverse('shop:goodsproduct_detail',
+                       args=[self.id, self.no])
+
+    def increase_views(self):
+        """ Views function """
+        self.views += 1
+        self.save(update_fields=['views'])
+
+    def image_data(self):
+        """ Generate thumbnail in admin """
+        return '<img src="{}" width="100px"/>'.format(self.image.url)
+
+    image_data.allow_tags = True
+    image_data.short_description = '產品縮圖'
+
+
+class GoodsProductImage(models.Model):
+    """ ProductImage structure """
+    product = models.ForeignKey(GoodsProduct,
+                                related_name='product_images',
+                                on_delete=models.CASCADE,
+                                verbose_name="商品")
+    image = models.ImageField(upload_to=images_folder,
+                              null=True,
+                              blank=True,
+                              verbose_name="圖片")
+    ordering = models.PositiveIntegerField(
+        default=1,
+        verbose_name="圖片順序")
+
+    class Meta:
+        verbose_name = "商品圖片"
+        verbose_name_plural = "商品圖片"
+
+    def image_data(self):
+        """ Generate thumbnail in admin """
+        return '<img src="{}" width="100px"/>'.format(self.image.url)
+
+    image_data.allow_tags = True
+    image_data.short_description = '縮圖'
+
+    def __str__(self):
+        return str(self.product.no) + '-' + str(self.ordering)

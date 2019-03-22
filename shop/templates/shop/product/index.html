@@ -4,15 +4,55 @@
   <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Foundation | Welcome</title>
+  <title>日系商品小舖</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/motion-ui/1.2.3/motion-ui.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation-prototype.min.css">
   <link href='https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css' rel='stylesheet' type='text/css'>
+  <style>
+    .title-bar-fix {
+      position: relative;
+      height: 36px;
+    }
+
+    .title {
+      font-weight: 600;
+      position: absolute;
+      left: 50%;
+      margin-left: 0;
+      margin-right: 0;
+      top: 50%;
+      color: white;
+      transform: translate(-50%, -50%);
+    }
+
+    .no-show {
+      display: none;
+    }
+
+    .small-pic {
+      width:100px;
+    }
+
+    .button {
+      color: white;
+      background-color: black;
+    }
+
+    .button.hollow {
+      border: 1px solid black;
+      color: black;
+    }
+
+    .mail {
+      color: black;
+    }
+
+  </style>
   </head>
 <body>
 <!-- Mobile Link-btn -->
-  <div class="title-bar" data-responsive-toggle="mainNavigation" data-hide-for="medium">
+  <!-- <div class="title-bar" data-responsive-toggle="mainNavigation" data-hide-for="medium">
     <div class="title-bar-left">
       <button class="menu-icon" type="button" data-toggle="mainNavigation"></button>
       <div class="title-bar-title">Menu</div>
@@ -38,11 +78,16 @@
         <li><a href="#">Six</a></li>
       </ul>
     </div>
+  </div> -->
+  <div class="title-bar title-bar-fix">
+    <div class="title">
+      <h4>日系商品小舖</h4>
+    </div>
   </div>
 
   <!-- Orbit Show -->
 
-  <div class="orbit" role="region" aria-label="Favorite Space Pictures" data-orbit data-options="animInFromLeft:fade-in; animInFromRight:fade-in; animOutToLeft:fade-out; animOutToRight:fade-out;">
+  <div class="orbit no-show" role="region" aria-label="Favorite Space Pictures" data-orbit data-options="animInFromLeft:fade-in; animInFromRight:fade-in; animOutToLeft:fade-out; animOutToRight:fade-out;">
     <ul class="orbit-container">
       <button class="orbit-previous"><span class="show-for-sr">Previous Slide</span>&#9664;&#xFE0E;</button>
       <button class="orbit-next"><span class="show-for-sr">Next Slide</span>&#9654;&#xFE0E;</button>
@@ -73,204 +118,119 @@
 
   <br>
   <div class="text-center">
-    <h2>Our Newest Products</h2>
+    <h2>最新商品</h2>
     <hr>
   </div>
   <article class="grid-container">
     <div class="grid-x grid-margin-x small-up-2 medium-up-2 large-up-4">
+    {% for p in new_goods %}
       <div class="cell">
-        <img class="thumbnail" src="https://placehold.it/500x600">
-        <h5>Nulla At Nulla Justo, Eget</h5>
-        <p>$400</p>
-        <a href="#" class="button expanded">Buy</a>
+        <img class="thumbnail" src="{% if p.image %}{{ p.image.url }}{% else %}{% static "img/no_thumb.png" %}{% endif %}">
+        <h5>{{ p.name }}</h5>
+        <p>${{ p.price }}</p>
+        <a href="#" class="button expanded">先不要點</a>
       </div>
-      <div class="cell">
-        <img class="thumbnail" src="https://placehold.it/500x600">
-        <h5>Nulla At Nulla Justo, Eget</h5>
-        <p>$400</p>
-        <a href="#" class="button expanded">Buy</a>
-      </div>
-      <div class="cell">
-        <img class="thumbnail" src="https://placehold.it/500x600">
-        <h5>Nulla At Nulla Justo, Eget</h5>
-        <p>$400</p>
-        <a href="#" class="button expanded">Buy</a>
-      </div>
-      <div class="cell">
-        <img class="thumbnail" src="https://placehold.it/500x600">
-        <h5>Nulla At Nulla Justo, Eget</h5>
-        <p>$400</p>
-        <a href="#" class="button expanded">Buy</a>
-      </div>
+    {% endfor %}
     </div>
     <hr>
     <div class="grid-x cell">
       <div class="callout small-12 primary">
-        <h3>Really big special this week on items.</h3>
+        <h3 class="text-center">如果有促銷活動會寫在這一行</h3>
       </div>
     </div>
     <hr>
     <div class="text-center">
-      <h2>Some Other Neat Products</h2>
+      <h2>我們推薦您的熱賣商品</h2>
       <hr>
     </div>
     <div class="grid-x grid-margin-x small-up-2 medium-up-3 large-up-6">
+    {% for p in hot_goods %}
       <div class="cell">
-        <img class="thumbnail" src="https://placehold.it/300x400">
-        <h5>Nulla At Nulla Justo, Eget</h5>
-        <p>$400</p>
-        <a href="#" class="button small expanded hollow">Buy</a>
+        <img class="thumbnail" src="{% if p.image %}{{ p.image.url }}{% else %}{% static "img/no_thumb.png" %}{% endif %}">
+        <h5>{{ p.name }}</h5>
+        <p>${{ p.price }}</p>
+        <a href="#" class="button small expanded hollow">先不要點</a>
       </div>
-      <div class="cell">
-        <img class="thumbnail" src="https://placehold.it/300x400">
-        <h5>Nulla At Nulla Justo, Eget</h5>
-        <p>$400</p>
-        <a href="#" class="button small expanded hollow">Buy</a>
-      </div>
-      <div class="cell">
-        <img class="thumbnail" src="https://placehold.it/300x400">
-        <h5>Nulla At Nulla Justo, Eget</h5>
-        <p>$400</p>
-        <a href="#" class="button small expanded hollow">Buy</a>
-      </div>
-      <div class="cell">
-        <img class="thumbnail" src="https://placehold.it/300x400">
-        <h5>Nulla At Nulla Justo, Eget</h5>
-        <p>$400</p>
-        <a href="#" class="button small expanded hollow">Buy</a>
-      </div>
-      <div class="cell">
-        <img class="thumbnail" src="https://placehold.it/300x400">
-        <h5>Nulla At Nulla Justo, Eget</h5>
-        <p>$400</p>
-        <a href="#" class="button small expanded hollow">Buy</a>
-      </div>
-      <div class="cell">
-        <img class="thumbnail" src="https://placehold.it/300x400">
-        <h5>Nulla At Nulla Justo, Eget</h5>
-        <p>$400</p>
-        <a href="#" class="button small expanded hollow">Buy</a>
-      </div>
+    {% endfor%}
     </div>
     <hr>
     <div class="grid-x align-bottom">
       <div class="medium-4 cell">
-      <h4>Top Products</h4>
-      <div class="media-object">
-        <div class="media-object-section">
-          <img class="thumbnail" src="https://placehold.it/100x100">
-        </div>
-        <div class="media-object-section">
-          <h5>Nunc Eu Ullamcorper Orci</h5>
-          <p>Quisque eget odio ac lectus vestibulum faucibus eget in metus. In pellentesque.</p>
-        </div>
-      </div>
-      <div class="media-object">
-        <div class="media-object-section">
-          <img class="thumbnail" src="https://placehold.it/100x100">
-        </div>
-        <div class="media-object-section">
-          <h5>Nunc Eu Ullamcorper Orci</h5>
-          <p>Quisque eget odio ac lectus vestibulum faucibus eget in metus. In pellentesque.</p>
-        </div>
-      </div>
-      <div class="media-object">
-        <div class="media-object-section">
-          <img class="thumbnail" src="https://placehold.it/100x100">
-        </div>
-        <div class="media-object-section">
-          <h5>Nunc Eu Ullamcorper Orci</h5>
-          <p>Quisque eget odio ac lectus vestibulum faucibus eget in metus. In pellentesque.</p>
-        </div>
-      </div>
+        <h4>女性服飾</h4>
+        {% for p in fe_goods %}
+          <div class="media-object media-object-height">
+            <div class="media-object-section">
+              <img class="thumbnail small-pic" src="{% if p.image %}{{  p.image.url  }}{% else %}{% static 'img/no_thumb.png' %}{% endif %}  ">
+            </div>
+            <div class="media-object-section">
+              <h5>{{ p.name }}</h5>
+              <p class="desc">{{ p.description|slice:"30" }}...</p>
+            </div>
+          </div>
+        {% endfor %}
       </div>
       <div class="medium-4 cell">
-      <h4>Top Products</h4>
-      <div class="media-object">
-        <div class="media-object-section">
-          <img class="thumbnail" src="https://placehold.it/100x100">
-        </div>
-        <div class="media-object-section">
-          <h5>Nunc Eu Ullamcorper Orci</h5>
-          <p>Quisque eget odio ac lectus vestibulum faucibus eget in metus. In pellentesque.</p>
-        </div>
-      </div>
-      <div class="media-object">
-        <div class="media-object-section">
-          <img class="thumbnail" src="https://placehold.it/100x100">
-        </div>
-        <div class="media-object-section">
-          <h5>Nunc Eu Ullamcorper Orci</h5>
-          <p>Quisque eget odio ac lectus vestibulum faucibus eget in metus. In pellentesque.</p>
-        </div>
-      </div>
-      <div class="media-object">
-        <div class="media-object-section">
-          <img class="thumbnail" src="https://placehold.it/100x100">
-        </div>
-        <div class="media-object-section">
-          <h5>Nunc Eu Ullamcorper Orci</h5>
-          <p>Quisque eget odio ac lectus vestibulum faucibus eget in metus. In pellentesque.</p>
-        </div>
-      </div>
+        <h4>男性服飾</h4>
+        {% for p in ma_goods %}
+          <div class="media-object media-object-height">
+            <div class="media-object-section">
+              <img class="thumbnail small-pic" src="{% if p.image %}{{p.image.url  }}{% else %}{% static 'img/no_thumb.png' %}{%endif %}">
+            </div>
+            <div class="media-object-section">
+              <h5>{{ p.name }}</h5>
+              <p class="desc">{{ p.description|slice:"30" }}...</p>
+            </div>
+          </div>
+        {% endfor %}
       </div>
       <div class="medium-4 cell">
-      <h4>Top Products</h4>
-      <div class="media-object">
-        <div class="media-object-section">
-          <img class="thumbnail" src="https://placehold.it/100x100">
+          <h4>精品提袋</h4>
+          {% for p in ba_goods %}
+            <div class="media-object media-object-height">
+              <div class="media-object-section">
+                <img class="thumbnail small-pic" src="{% if p.image %}{{p.image.url  }}{% else %}{% static 'img/no_thumb.png' %}{%endif %}">
+              </div>
+              <div class="media-object-section">
+                <h5>{{ p.name }}</h5>
+                <p class="desc">{{ p.description|slice:"30" }}...</p>
+              </div>
+            </div>
+          {% endfor %}
         </div>
-        <div class="media-object-section">
-          <h5>Nunc Eu Ullamcorper Orci</h5>
-          <p>Quisque eget odio ac lectus vestibulum faucibus eget in metus. In pellentesque.</p>
-        </div>
-      </div>
-      <div class="media-object">
-        <div class="media-object-section">
-          <img class="thumbnail" src="https://placehold.it/100x100">
-        </div>
-        <div class="media-object-section">
-          <h5>Nunc Eu Ullamcorper Orci</h5>
-          <p>Quisque eget odio ac lectus vestibulum faucibus eget in metus. In pellentesque.</p>
-        </div>
-      </div>
-      <div class="media-object">
-        <div class="media-object-section">
-          <img class="thumbnail" src="https://placehold.it/100x100">
-        </div>
-        <div class="media-object-section">
-          <h5>Nunc Eu Ullamcorper Orci</h5>
-          <p>Quisque eget odio ac lectus vestibulum faucibus eget in metus. In pellentesque.</p>
-        </div>
-      </div>
-      </div> 
     </div>
 
   </article>
   <br>
   <footer class="callout large secondary">
+    <h5 class="text-center">日系商品小舖</h5>
     <article class="grid-container">
-      <div class="grid-x">
+      <div class="grid-x grid-margin-x">
         <div class="large-4 cell">
-          <h5>Vivamus Hendrerit Arcu Sed Erat Molestie</h5>
-          <p>Curabitur vulputate, ligula lacinia scelerisque tempor, lacus lacus ornare ante, ac egestas est urna sit amet arcu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed molestie augue sit.</p>
-          </h4>
+          <p>
+            <h5>退購須知：</h5><br />
+            ▪ 依《消費者保護法》規定，消費者享有商品簽收翌日起算七天之鑑賞期，期間申請退購無須負擔運費，欲退購者請於七日內提出，逾期恕不受理。注意！猶豫期並非試用期，故退回的商品必須是全新的狀態且完整包裝（含商品本體、配件、贈品、保證書、原廠包裝及所有附隨文件或資料），切勿缺漏任何配件、自行拆解商品、或損毀原廠外盒。如有遺失、毀損或缺件，可能影響您退貨的權益，也將依照損毀程度扣除為復原所需之整新費用。<br />
+            ▪ 如購買的商品是電腦軟體、遊戲、影音光碟、食品、耗材、個人衛生用品及客製化商品，拆封後除瑕疵品外恕無法辦理退換貨</p>
         </div>
-        <div class="large-3 large-offset-2 cell">
-          <ul class="menu vertical">
-            <li><a href="#">One</a></li>
-            <li><a href="#">Two</a></li>
-            <li><a href="#">Three</a></li>
-            <li><a href="#">Four</a></li>
-          </ul>
+        <div class="large-4 cell">
+          <p>
+            <h5>換貨須知：</h5><br />
+            ▪ 商品到貨七日內，商品有瑕疵或您不滿意，均可換貨，請安心選購，辦理換貨<br />
+            ▪ 換貨原因非 商品瑕疵、運送過程損壞、配件不齊、規格不符、實收商品與訂購商品不符者，請自行負擔來回運費和其他任何損失。<br /><br />
+            <h5>運送服務：</h5><br />
+            ▪ 我們所提供的產品配送區域範圍目前僅限台灣本島，外島地區部分商品不配送。
+            ▪ 我們將於完成收款確認後，一般在訂單確認後七天內(不含例假日)將貨品運送到指定地點（預購、特別訂製商品除外）。<br />
+          </p>
         </div>
-        <div class="large-3 cell">
-          <ul class="menu vertical">
-            <li><a href="#">One</a></li>
-            <li><a href="#">Two</a></li>
-            <li><a href="#">Three</a></li>
-            <li><a href="#">Four</a></li>
-          </ul>
+        <div class="large-4 cell">
+          <p>
+            <h5>售後服務：</h5><br />
+            ▪ 若商品發生新品瑕疵之情形，建議先行前往商品常見問題，參見解決辦法，者連絡客服，為您申請更換新品。<br />
+            ▪ 若您對於購買流程、付款方式、換貨及商品運送方式有疑問，您可直接點選服中心。<br /><br />
+            <h5>聯絡我們：</h5><br />
+            ▪ 0928-050-212<br />
+            ▪ <a href="mailto:someone@yoursite.com" class="mail">
+              delightroom2018@gmail.com</a>
+          </p>
         </div>
       </div>
     </article>

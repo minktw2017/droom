@@ -1,13 +1,25 @@
 """ Admin Structure """
 from django.contrib import admin
 from django.utils.safestring import mark_safe
-from .models import Category, ProductImage, Product, Supplier
+from .models import (Category,
+                     ProductImage,
+                     Product,
+                     Supplier,
+                     GoodsProduct,
+                     GoodsProductImage)
 
 
 # Register your models here.
 class CategoryAdmin(admin.ModelAdmin):
     """ CategoryAdmin Structure """
-    list_display = ('id', 'name', 'attr', 'slug', 'parent', 'ordering', 'available')
+    ordering = ['id']
+    list_display = ('id',
+                    'name',
+                    'attr',
+                    'slug',
+                    'parent',
+                    'ordering',
+                    'available')
 
 
 admin.site.register(Category, CategoryAdmin)
@@ -22,7 +34,9 @@ class ProductImageInLine(admin.StackedInline):
 
     def product_image(self, obj):
         """ Generate thumbnail in Admin """
-        return mark_safe('<img src="{}" width="100px"/>'.format(obj.thumbnail.url))
+        return mark_safe(
+            '<img src="{}" width="100px"/>'.format(obj.image.url)
+            )
 
     product_image.allow_tags = True
 
@@ -81,7 +95,9 @@ class ProductAdmin(admin.ModelAdmin):
 
     def product_image(self, obj):
         """ Generate thumbnail in Admin """
-        return mark_safe('<img src="{}" width="125px"/>'.format(obj.thumbnail.url))
+        return mark_safe(
+            '<img src="{}" width="125px"/>'.format(obj.thumbnail.url)
+            )
 
     product_image.allow_tags = True
     product_image.short_description = '主圖預覽'
@@ -90,3 +106,68 @@ class ProductAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Product, ProductAdmin)
+
+
+class GoodsProductImageInLine(admin.StackedInline):
+    """ GoodsProductImageInLine Structure """
+    model = GoodsProductImage
+    fields = ['product_image', 'image', 'ordering']
+    readonly_fields = ['product_image']
+    extra = 0
+
+    def product_image(self, obj):
+        """ Generate thumbnail in Admin """
+        return mark_safe(
+            '<img src="{}" width="100px"/>'.format(obj.image.url)
+            )
+
+    product_image.allow_tags = True
+
+
+class GoodsProductImageAdmin(admin.ModelAdmin):
+    """ GoodsProductImage Structure """
+    list_display = ('image_data', 'image', 'ordering')
+
+
+admin.site.register(GoodsProductImage, GoodsProductImageAdmin)
+
+
+class GoodsProductAdmin(admin.ModelAdmin):
+    """ GoodsProductAdmin Structure """
+    ordering = ['-id']
+    search_fields = ('no', 'name',)
+    readonly_fields = ('updated',)
+    list_display = ('id',
+                    'no',
+                    'image_data',
+                    'name',
+                    'price',
+                    'stock',
+                    'available',
+                    'updated')
+    fieldsets = (
+        (None, {
+            'fields': (('no', 'product_image'),)
+        }),
+        (None, {
+            'fields': ('name', 'image',
+                       'category', 'description',
+                       ('price', 'stock', 'views'), 'available'),
+        }),
+    )
+    filter_horizontal = ('category',)
+    readonly_fields = ('no', 'product_image',)
+
+    def product_image(self, obj):
+        """ Generate thumbnail in Admin """
+        return mark_safe(
+            '<img src="{}" width="125px"/>'.format(obj.image.url)
+            )
+
+    product_image.allow_tags = True
+    product_image.short_description = '主圖預覽'
+
+    inlines = [GoodsProductImageInLine]
+
+
+admin.site.register(GoodsProduct, GoodsProductAdmin)

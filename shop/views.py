@@ -5,7 +5,11 @@ from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
 from cart.forms import CartAddProductForm
-from .models import Category, Product, ProductImage
+from .models import (Category,
+                     Product,
+                     ProductImage,
+                     GoodsProduct,
+                     GoodsProductImage)
 
 
 # Create your views here.
@@ -14,7 +18,6 @@ def product_list(request, category_slug=None):
     parent = None
     parent_category = None
     category = None
-    children = None
 
     request.session["web_path"] = "home"
     web_path = request.session.get("web_path", default="none")
@@ -145,8 +148,43 @@ def search(request):
     return render(request, template, context)
 
 def index(request):
+    ''' GoodsProduct Index'''
     template = 'shop/product/index.html'
-    
+    object_list = GoodsProduct.objects.filter(available=True)
+    newest_category = Category.objects.filter(attr="newest", available=True)
+    new_goods = object_list.filter(category=newest_category)
+
+    hot_category = Category.objects.filter(attr="hot", available=True)
+    hot_goods = object_list.filter(category=hot_category)
+
+    re_category = Category.objects.filter(attr="recommend", available=True)
+    re_goods = object_list.filter(category=re_category)
+
+    fe_category = Category.objects.filter(slug="goods_female", available=True)
+    fe_goods = object_list.filter(category=fe_category)
+
+    ma_category = Category.objects.filter(slug="goods_male", available=True)
+    ma_goods = object_list.filter(category=ma_category)
+
+    ba_category = Category.objects.filter(slug="goods_bags", available=True)
+    ba_goods = object_list.filter(category=ba_category)
+
+    context = {
+        'new_goods': new_goods,
+        'hot_goods': hot_goods,
+        're_goods': re_goods,
+        'fe_goods': fe_goods,
+        'ma_goods': ma_goods,
+        'ba_goods': ba_goods
+        }
+
+    return render(request, template, context)
+
+
+def goods_detail(request):
+    ''' GoodsProduct detail'''
+    template = 'shop/product/goods_detail.html'
+
     context = {}
 
     return render(request, template, context)
