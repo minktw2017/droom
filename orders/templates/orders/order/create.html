@@ -1,32 +1,163 @@
-{% extends "shop/base.html" %}
+{% load static %}
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>您的購物車</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/motion-ui/1.2.3/motion-ui.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation-prototype.min.css">
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css' rel='stylesheet' type='text/css'>
+    <style>
+      .title-bar-fix {
+        position: relative;
+        height: 36px;
+      }
+  
+      .title {
+        font-weight: 600;
+        position: absolute;
+        left: 50%;
+        margin-left: 0;
+        margin-right: 0;
+        top: 50%;
+        color: white;
+        transform: translate(-50%, -50%);
+      }
 
-{% block title %}訂單資訊{% endblock %}
+      .button {
+        color: white;
+        background-color: black;
+      }
 
-{% block content %}
-<div class="grid-container grid-container-padded">
-  <div class="grid-x grid-margin-x">
-    <div class="cell small-12 medium-6 float-right">
-      <div class="order-info">
-      <h3>訂購商品</h3>
-      <ul>
-        {% for item in cart %}
-        <li>{{ item.quantity }} x {{ item.product.name }}
-          <span>${{ item.total_price }}</span>
-        </li>
-        {% endfor %}
-      </ul>
-      <hr>
-      <p>總計： ${{ cart.get_total_price }}</p>
+      .button:hover {
+        background-color: #171717;
+      }
+
+      .item-images img { 
+        margin: 0 auto; 
+      }
+
+      .item-intro {
+        position: relative;
+        height: 600px;
+      }
+
+      .intro-title {
+        position: absolute;
+        top: 0;
+      }
+
+      .intro-desc {
+        position: absolute;
+        top: 20%;
+      }
+
+      .intro-price {
+        position: absolute;
+        top: 60%;
+      }
+
+      .intro-buy {
+        position: absolute;
+        top: 70%
+      }
+
+      .images {
+        padding-bottom: 20px;
+      }
+
+      .item-img {
+        width: 15%;
+        padding-bottom: 5px;
+      }
+
+      .order-info {
+        margin: 0;
+      }
+
+      .order-info > ul {
+        margin-left: 0;
+        list-style-type: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="title-bar title-bar-fix">
+      <div class="title">
+        <h4>日系商品小舖</h4>
       </div>
     </div>
-    <div class="cell small-12 medium-6 float-left buyer-info">
-      <h1>訂購人資訊</h1>
-      <form action="." method="post" class="order-form">
-      {{ form.as_p }}
-      <p><input type="submit" value="訂單確認"></p>
-      {% csrf_token %}
-      </form>
+    <div class="grid-container grid-container-padded">
+      <div class="grid-x grid-margin-x">
+        <div class="cell small-12">
+          <div class="order-info">
+          <h3>訂購商品</h3>
+          <ul>
+            {% for item in cart %}
+            <li>
+              <img src="{{ item.product.image.url }}" class="item-img">
+              {{ item.quantity }} x {{ item.product.name }}
+              <span>${{ item.total_price }}</span>
+            </li>
+            {% endfor %}
+          </ul>
+          <hr>
+          <p>總計： ${{ cart.get_total_price }}</p>
+          </div>
+        </div>
+        <div class="cell small-12buyer-info">
+          <h3>配送方式</h3>
+          
+          <h3>訂購人資訊</h3>
+          <form action="." method="post" class="order-form">
+          {{ form.as_p }}
+          <p><input type="submit" value="訂單確認"></p>
+          {% csrf_token %}
+          </form>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-{% endblock %}
+    <footer class="callout large secondary">
+      <h5 class="text-center">日系商品小舖</h5>
+      <article class="grid-container">
+        <div class="grid-x grid-margin-x">
+          <div class="large-4 cell">
+            <p>
+              <h5>退購須知：</h5><br />
+              ▪ 依《消費者保護法》規定，消費者享有商品簽收翌日起算七天之鑑賞期，期間申請退購無須負擔運費，欲退購者請於七日內提出，逾期恕不受理。注意！猶豫期並非試用期，故退回的商品必須是全新的狀態且完整包裝（含商品本體、配件、贈品、保證書、原廠包裝及所有附隨文件或資料），切勿缺漏任何配件、自行拆解商品、或損毀原廠外盒。如有遺失、毀損或缺件，可能影響您退貨的權益，也將依照損毀程度扣除為復原所需之整新費用。<br />
+              ▪ 如購買的商品是電腦軟體、遊戲、影音光碟、食品、耗材、個人衛生用品及客製化商品，拆封後除瑕疵品外恕無法辦理退換貨</p>
+          </div>
+          <div class="large-4 cell">
+            <p>
+              <h5>換貨須知：</h5><br />
+              ▪ 商品到貨七日內，商品有瑕疵或您不滿意，均可換貨，請安心選購，辦理換貨<br />
+              ▪ 換貨原因非 商品瑕疵、運送過程損壞、配件不齊、規格不符、實收商品與訂購商品不符者，請自行負擔來回運費和其他任何損失。<br /><br />
+              <h5>運送服務：</h5><br />
+              ▪ 我們所提供的產品配送區域範圍目前僅限台灣本島，外島地區部分商品不配送。
+              ▪ 我們將於完成收款確認後，一般在訂單確認後七天內(不含例假日)將貨品運送到指定地點（預購、特別訂製商品除外）。<br />
+            </p>
+          </div>
+          <div class="large-4 cell">
+            <p>
+              <h5>售後服務：</h5><br />
+              ▪ 若商品發生新品瑕疵之情形，建議先行前往商品常見問題，參見解決辦法，者連絡客服，為您申請更換新品。<br />
+              ▪ 若您對於購買流程、付款方式、換貨及商品運送方式有疑問，您可直接點選服中心。<br /><br />
+              <h5>聯絡我們：</h5><br />
+              ▪ 0928-050-212<br />
+              ▪ <a href="mailto:someone@yoursite.com" class="mail">
+                delightroom2018@gmail.com</a>
+            </p>
+          </div>
+        </div>
+      </article>
+    </footer>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/js/foundation.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/motion-ui/1.2.3/motion-ui.min.js"></script>
+    <script>
+          $(document).foundation();
+    </script>
+  </body>
+</html>

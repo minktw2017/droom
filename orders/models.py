@@ -4,12 +4,6 @@ from shop.models import Product
 
 # Create your models here.
 class Order(models.Model):
-    GENDER_CHOICES = (
-        ('male', '先生'),
-        ('female', '小姐'),
-        ('not-specified', '不指定'),
-    )
-
     STATUS_CHOICES = (
         ('unhandled', '未處理'),
         ('ordered', '已叫貨'),
@@ -29,9 +23,6 @@ class Order(models.Model):
     name = models.CharField(max_length=50,
                             db_index=True,
                             verbose_name="姓名")
-    gender = models.CharField(max_length=20,
-                              choices=GENDER_CHOICES,
-                              verbose_name="性別")
     email = models.EmailField(verbose_name="E-mail")
     address = models.CharField(max_length=250,
                                verbose_name="住址")

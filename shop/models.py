@@ -143,6 +143,11 @@ class Product(models.Model):
         return reverse('shop:product_detail',
                        args=[self.id, self.no])
 
+    def get_shadow_url(self):
+        """ Get absolute url """
+        return reverse('shop:goods_detail',
+                       args=[self.id, self.no])
+
     def increase_views(self):
         """ Views function """
         self.views += 1
@@ -285,7 +290,7 @@ class GoodsProduct(models.Model):
 
     def get_absolute_url(self):
         """ Get absolute url """
-        return reverse('shop:goodsproduct_detail',
+        return reverse('shop:goods_detail',
                        args=[self.id, self.no])
 
     def increase_views(self):

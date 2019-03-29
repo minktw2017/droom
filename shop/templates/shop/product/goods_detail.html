@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html>
   <head>
@@ -24,6 +25,49 @@
         color: white;
         transform: translate(-50%, -50%);
       }
+
+      .button {
+        color: white;
+        background-color: black;
+      }
+
+      .button:hover {
+        background-color: #171717;
+      }
+
+      .item-images img { 
+        margin: 0 auto; 
+      }
+
+      .item-intro {
+        position: relative;
+        height: 600px;
+      }
+
+      .intro-title {
+        position: absolute;
+        top: 0;
+      }
+
+      .intro-desc {
+        position: absolute;
+        top: 20%;
+      }
+
+      .intro-price {
+        position: absolute;
+        top: 60%;
+      }
+
+      .intro-buy {
+        position: absolute;
+        top: 70%
+      }
+
+      .images {
+        padding-bottom: 20px;
+      }
+
     </style>
   </head>
   <body>
@@ -38,19 +82,15 @@
       <div class="grid-x cell">
         <nav aria-label="You are here:" role="navigation">
           <ul class="breadcrumbs">
-            <li><a href="#">首頁</a></li>
-            <li><a href="#">Features</a></li>
-            <li class="disabled">Gene Splicing</li>
-            <li>
-              <span class="show-for-sr">Current: </span> Cloning
-            </li>
+            <li><a href="/">首頁</a></li>
+            <li><a href="{{ p.get_shadow_url }}">{{ product.name }}</a></li>
           </ul>
         </nav>
       </div>
       <div class="grid-x grid-margin-x">
         <div class="medium-6 cell">
-          <img class="thumbnail" src="https://placehold.it/650x350">
-          <div class="grid-x grid-padding-x small-up-4">
+          <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}" alt="{{ product.name }}">
+          <!-- <div class="grid-x grid-padding-x small-up-4">
             <div class="cell">
               <img src="https://placehold.it/250x200">
             </div>
@@ -63,37 +103,42 @@
             <div class="cell">
               <img src="https://placehold.it/250x200">
             </div>
-          </div>
+          </div> -->
         </div>
 
         <div class="medium-6 large-5 cell large-offset-1">
-          <h3>My Awesome Product</h3>
-          <p>Nunc eu ullamcorper orci. Quisque eget odio ac lectus vestibulum faucibus eget in metus. In pellentesque faucibus vestibulum. Nulla at nulla justo, eget luctus tortor. Nulla facilisi. Duis aliquet egestas purus in.</p>
-          <label>Size
-            <select>
-              <option value="husker">Small</option>
-              <option value="starbuck">Medium</option>
-              <option value="hotdog">Large</option>
-              <option value="apollo">Yeti</option>
-            </select>
-          </label>
-          <div class="grid-x">
-            <div class="small-3 cell">
-              <label for="middle-label" class="middle">Quantity</label>
+          <div class="item-intro">
+            <div class="intro-title">
+              <h2>{{ product.name }}</h2>
             </div>
-            <div class="small-9 cell">
-              <input type="text" id="middle-label" placeholder="One fish two fish">
+            <div class="intro-desc">
+              <h4>{{ product.description }}</h4>
             </div>
-          </div>
-          <a href="#" class="button large expanded">Buy Now</a>
-          <div class="small secondary expanded button-group">
-            <a class="button">Facebook</a>
-            <a class="button">Twitter</a>
-            <a class="button">Yo</a>
+            <div class="intro-price">
+              <h4 class="Alert">售價：{{ product.price }}</h4>
+            </div>
+            <div class="intro-buy">
+              <form action="{% url 'cart:cart_add' product.id %}" method="post">
+                {{ cart_product_form }}
+                {% csrf_token %}
+                <input type="submit" value="加到購物車" class="input-cart">
+              </form>
+              <p>此商品已被瀏覽：{{ product.views }}次</p>
+            </div>
           </div>
         </div>
       </div>
-      <div class="">
+      <hr>
+      <div class="grid-container images">
+        <div class="grid-x">
+          <div class="small-12 cell">
+            {% for image in images %}
+            <img src="{{ image.image.url }}" alt="{{ product.name }}" width="350">
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      <!-- <div class="">
         <hr>
           <ul class="tabs" data-tabs id="example-tabs">
             <li class="tabs-title is-active"><a href="#panel1" aria-selected="true">Reviews</a></li>
@@ -169,22 +214,42 @@
               </div>
             </div>
           </div>
-          </div>
-      <hr>
-      <div class="grid-x align-justify align-middle">
-        <div class="small-12 medium-shrink cell">
-          <ul class="menu">
-            <li class="align-self-middle">日系商品小舖</li>
-            <li><a href="#">首頁</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
-          </ul>
-        </div>
-        <div class="small-12 medium-shrink cell">
-          <span>Copyright 2018</span>
-        </div>
-      </div>
+          </div> -->
     </article>
+    <footer class="callout large secondary">
+      <h5 class="text-center">日系商品小舖</h5>
+      <article class="grid-container">
+        <div class="grid-x grid-margin-x">
+          <div class="large-4 cell">
+            <p>
+              <h5>退購須知：</h5><br />
+              ▪ 依《消費者保護法》規定，消費者享有商品簽收翌日起算七天之鑑賞期，期間申請退購無須負擔運費，欲退購者請於七日內提出，逾期恕不受理。注意！猶豫期並非試用期，故退回的商品必須是全新的狀態且完整包裝（含商品本體、配件、贈品、保證書、原廠包裝及所有附隨文件或資料），切勿缺漏任何配件、自行拆解商品、或損毀原廠外盒。如有遺失、毀損或缺件，可能影響您退貨的權益，也將依照損毀程度扣除為復原所需之整新費用。<br />
+              ▪ 如購買的商品是電腦軟體、遊戲、影音光碟、食品、耗材、個人衛生用品及客製化商品，拆封後除瑕疵品外恕無法辦理退換貨</p>
+          </div>
+          <div class="large-4 cell">
+            <p>
+              <h5>換貨須知：</h5><br />
+              ▪ 商品到貨七日內，商品有瑕疵或您不滿意，均可換貨，請安心選購，辦理換貨<br />
+              ▪ 換貨原因非 商品瑕疵、運送過程損壞、配件不齊、規格不符、實收商品與訂購商品不符者，請自行負擔來回運費和其他任何損失。<br /><br />
+              <h5>運送服務：</h5><br />
+              ▪ 我們所提供的產品配送區域範圍目前僅限台灣本島，外島地區部分商品不配送。
+              ▪ 我們將於完成收款確認後，一般在訂單確認後七天內(不含例假日)將貨品運送到指定地點（預購、特別訂製商品除外）。<br />
+            </p>
+          </div>
+          <div class="large-4 cell">
+            <p>
+              <h5>售後服務：</h5><br />
+              ▪ 若商品發生新品瑕疵之情形，建議先行前往商品常見問題，參見解決辦法，者連絡客服，為您申請更換新品。<br />
+              ▪ 若您對於購買流程、付款方式、換貨及商品運送方式有疑問，您可直接點選服中心。<br /><br />
+              <h5>聯絡我們：</h5><br />
+              ▪ 0928-050-212<br />
+              ▪ <a href="mailto:someone@yoursite.com" class="mail">
+                delightroom2018@gmail.com</a>
+            </p>
+          </div>
+        </div>
+      </article>
+    </footer>
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/js/foundation.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/motion-ui/1.2.3/motion-ui.min.js"></script>

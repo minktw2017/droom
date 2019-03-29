@@ -72,7 +72,7 @@ def product_list(request, category_slug=None):
                    })
 
 
-def product_detail(request, id, no):
+def product_detail(request, p_id, p_no):
     '''Initialize the render Dictionary'''
     parent_category = None
     category = None
@@ -81,8 +81,8 @@ def product_detail(request, id, no):
     categories = Category.objects.filter(attr="first").order_by('ordering')
 
     product = get_object_or_404(Product,
-                                id=id,
-                                no=no,
+                                id=p_id,
+                                no=p_no,
                                 available=True)
     web_path = request.session.get("web_path")
 
@@ -102,7 +102,7 @@ def product_detail(request, id, no):
     #增加商品瀏覽次數
     product.increase_views()
 
-    images = ProductImage.objects.filter(product_id=id)
+    images = ProductImage.objects.filter(product_id=p_id)
     return render(request,
                   'shop/product/detail.html',
                   {'category': category,
@@ -150,7 +150,7 @@ def search(request):
 def index(request):
     ''' GoodsProduct Index'''
     template = 'shop/product/index.html'
-    object_list = GoodsProduct.objects.filter(available=True)
+    object_list = Product.objects.filter(available=True)
     newest_category = Category.objects.filter(attr="newest", available=True)
     new_goods = object_list.filter(category=newest_category)
 
@@ -181,10 +181,18 @@ def index(request):
     return render(request, template, context)
 
 
-def goods_detail(request):
+def goods_detail(request, p_id, p_no):
     ''' GoodsProduct detail'''
     template = 'shop/product/goods_detail.html'
+    product = get_object_or_404(Product,
+                                id=p_id,
+                                no=p_no,
+                                available=True)
+    images = ProductImage.objects.filter(product_id=p_id)
+    cart_product_form = CartAddProductForm()
 
-    context = {}
+    context = {'product': product,
+               'images': images,
+               'cart_product_form': cart_product_form}
 
     return render(request, template, context)

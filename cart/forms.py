@@ -1,3 +1,4 @@
+''' Cart Form '''
 from django import forms
 
 
@@ -6,7 +7,7 @@ PRODUCT_QUANTITY_CHOICES = [
 
 
 class CartAddProductForm(forms.Form):
-
+    ''' Cart Form '''
     quantity = forms.TypedChoiceField(
         choices=PRODUCT_QUANTITY_CHOICES,
         coerce=int,

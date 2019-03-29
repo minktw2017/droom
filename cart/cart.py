@@ -1,10 +1,11 @@
+""" Build Cart """
 from decimal import Decimal
 from django.conf import settings
 from shop.models import Product
 
 
 class Cart(object):
-
+    """ Define Cart """
     def __init__(self, request):
         """
         Initialize the cart.
@@ -34,7 +35,7 @@ class Cart(object):
         self.save()
 
     def save(self):
-        # update the session cart
+        """ update the session cart """
         self.session[settings.CART_SESSION_ID] = self.cart
         # mark the session as "modified" to make sure it is saved
         self.session.modified = True
@@ -72,9 +73,12 @@ class Cart(object):
         return sum(item['quantity'] for item in self.cart.values())
 
     def get_total_price(self):
+        """
+        Count total_price in the cart.
+        """
         return sum(Decimal(item['price']) * item['quantity'] for item in self.cart.values())
 
     def clear(self):
-        # remove cart from session
+        """ remove cart from session """
         del self.session[settings.CART_SESSION_ID]
         self.session.modified = True

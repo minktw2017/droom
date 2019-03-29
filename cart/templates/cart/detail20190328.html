@@ -1,0 +1,88 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %}您的購物車{% endblock %}
+
+{% block content %}
+<div class="off-canvas position-left" id="offCanvas" data-off-canvas>
+  <div class="first-Menu">
+    <a href="{% url "shop:product_list" %}">全部商品</a>
+  </div>
+  {% for c in categories %}
+    <div class="first-Menu" id="{{ c.slug }}">
+      <i class="fi-plus float-right" id="side"></i>
+      <a href="{{ c.get_absolute_url }}"{% if c.slug == web_path %} class="selected"{% endif %}>
+        {{ c.name }}</a>
+      <ul class="sub-Menu">
+        {% for child in c.children.all|dictsort:"ordering" %}
+        {% if child.available %}
+          <li><a href="{{ child.get_absolute_url }}"{% if child.slug == web_path %} class="selected"{% endif %}>
+          {{ child.name }}</a></li>
+        {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  {% endfor %}
+</div>
+<div class="grid-container grid-container-padded">
+  <div class="grid-x grid-margin-x">
+    <div class="cell small-12 medium-12" style="margin: 0 auto;">
+      <h1 class='cart-title'>您的購物車</h1>
+      <h2 class='cart-title-price'>目前總計：NT${{ cart.get_total_price }}</h2>
+      <div class="grid-y">
+        <div class="cell">
+          <table class="rwdtable">
+            <thead class='hide-for-small-only'>
+              <tr>
+                <th>商品</th>
+                <th>名稱</th>
+                <th>單價</th>
+                <th>數量</th>
+                <th>小計</th>
+                <th>刪除</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for item in cart %}
+            {% with product=item.product %}
+              <tr>
+                <td data-label="商品">
+                  <a href="{{ product.get_absolute }}">
+                  <img src="{% if product.thumbnail %}{{ product.thumbnail.url }}{% else %}{% static "img/no_img.png" %}{% endif %}">
+                  </a>
+                </td>
+                <td data-label="名稱：">{{ product.name }}</td>
+                <td data-label="單價：">NT${{ item.price }}</td>
+                <td data-label="數量：" class='quantity'>
+                  <form action="{% url "cart:cart_add" product.id %}" method="post">
+                    {{ item.update_quantity_form.quantity }}
+                    {{ item.update_quantity_form.update }}
+                    <input type="submit" value="更改">
+                    {% csrf_token %}
+                  </form>
+                </td>
+                <td data-label="小計：" class='price'>NT${{ item.total_price }}</td>
+                <td nowrap="nowrap" data-label="刪除："><a href="{% url "cart:cart_remove" product.id %}" class="cart-delete">刪除</a></td>
+              </tr>
+            {% endwith %}
+            {% endfor %}
+              <tr class="total">
+              <td class='hide-for-small-only'></td>
+              <td colspan="3" class='hide-for-small-only'></td>
+              <td>總計</td>
+              <td class='price'>NT${{ cart.get_total_price }}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="cell">
+          <p>
+            <a href="{% url "shop:product_list" %}" class="button cart">繼續購物</a>
+            <a href="{% url "orders:order_create" %}" class="button cart">結帳去</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

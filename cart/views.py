@@ -1,3 +1,4 @@
+''' Cart View '''
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 from shop.models import Product, Category
@@ -8,6 +9,7 @@ from .forms import CartAddProductForm
 # Create your views here.
 @require_POST
 def cart_add(request, product_id):
+    ''' add cart '''
     cart = Cart(request)
     product = get_object_or_404(Product, id=product_id)
     form = CartAddProductForm(request.POST)
@@ -20,6 +22,7 @@ def cart_add(request, product_id):
 
 
 def cart_remove(request, product_id):
+    ''' remove cart '''
     cart = Cart(request)
     product = get_object_or_404(Product, id=product_id)
     cart.remove(product)
@@ -27,6 +30,7 @@ def cart_remove(request, product_id):
 
 
 def cart_detail(request, category_slug=None):
+    ''' cart detail '''
     categories = Category.objects.filter(attr="first").order_by('ordering')
 
     cart = Cart(request)

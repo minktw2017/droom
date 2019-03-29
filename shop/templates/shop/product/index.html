@@ -39,13 +39,39 @@
       background-color: black;
     }
 
+    .button:hover {
+      background-color: #171717;
+    }
+
     .button.hollow {
       border: 1px solid black;
       color: black;
     }
 
+    .button.hollow:hover {
+      color: #171717;
+    }
+
     .mail {
       color: black;
+    }
+
+    .media-object-section > a {
+      color: black;
+    }
+
+    .media-object-section > a:hover {
+      color: #171717;
+    }
+
+    .media-object-height {
+      height: 220px;
+    }
+
+    .desc {
+      padding: 2px;
+      height: 100px;
+      overflow: hidden;
     }
 
   </style>
@@ -128,7 +154,7 @@
         <img class="thumbnail" src="{% if p.image %}{{ p.image.url }}{% else %}{% static "img/no_thumb.png" %}{% endif %}">
         <h5>{{ p.name }}</h5>
         <p>${{ p.price }}</p>
-        <a href="#" class="button expanded">先不要點</a>
+        <a href="{{ p.get_shadow_url }}" class="button expanded">商品詳情</a>
       </div>
     {% endfor %}
     </div>
@@ -149,12 +175,12 @@
         <img class="thumbnail" src="{% if p.image %}{{ p.image.url }}{% else %}{% static "img/no_thumb.png" %}{% endif %}">
         <h5>{{ p.name }}</h5>
         <p>${{ p.price }}</p>
-        <a href="#" class="button small expanded hollow">先不要點</a>
+        <a href="{{ p.get_shadow_url }}" class="button small expanded hollow">商品詳情</a>
       </div>
     {% endfor%}
     </div>
     <hr>
-    <div class="grid-x align-bottom">
+    <div class="grid-x">
       <div class="medium-4 cell">
         <h4>女性服飾</h4>
         {% for p in fe_goods %}
@@ -163,8 +189,9 @@
               <img class="thumbnail small-pic" src="{% if p.image %}{{  p.image.url  }}{% else %}{% static 'img/no_thumb.png' %}{% endif %}  ">
             </div>
             <div class="media-object-section">
-              <h5>{{ p.name }}</h5>
+              <a href="{{ p.get_shadow_url }}"><h5>{{ p.name }}</h5></a>
               <p class="desc">{{ p.description|slice:"30" }}...</p>
+              <a href="{{ p.get_shadow_url }}" class="button tiny hollow">商品詳情</a>
             </div>
           </div>
         {% endfor %}
@@ -177,28 +204,29 @@
               <img class="thumbnail small-pic" src="{% if p.image %}{{p.image.url  }}{% else %}{% static 'img/no_thumb.png' %}{%endif %}">
             </div>
             <div class="media-object-section">
-              <h5>{{ p.name }}</h5>
+              <a href="{{ p.get_shadow_url }}"><h5>{{ p.name }}</h5></a>
               <p class="desc">{{ p.description|slice:"30" }}...</p>
+              <a href="{{ p.get_shadow_url }}" class="button tiny hollow">商品詳情</a>
             </div>
           </div>
         {% endfor %}
       </div>
       <div class="medium-4 cell">
-          <h4>精品提袋</h4>
-          {% for p in ba_goods %}
-            <div class="media-object media-object-height">
-              <div class="media-object-section">
-                <img class="thumbnail small-pic" src="{% if p.image %}{{p.image.url  }}{% else %}{% static 'img/no_thumb.png' %}{%endif %}">
-              </div>
-              <div class="media-object-section">
-                <h5>{{ p.name }}</h5>
-                <p class="desc">{{ p.description|slice:"30" }}...</p>
-              </div>
+        <h4>精品提袋</h4>
+        {% for p in ba_goods %}
+          <div class="media-object media-object-height">
+            <div class="media-object-section">
+              <img class="thumbnail small-pic" src="{% if p.image %}{{p.image.url  }}{% else %}{% static 'img/no_thumb.png' %}{%endif %}">
             </div>
-          {% endfor %}
-        </div>
+            <div class="media-object-section media-object-height">
+              <a href="{{ p.get_shadow_url }}"><h5>{{ p.name }}</h5></a>
+              <p class="desc">{{ p.description|slice:"30" }}...</p>
+              <a href="{{ p.get_shadow_url }}" class="button tiny hollow align-bottom">商品詳情</a>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
     </div>
-
   </article>
   <br>
   <footer class="callout large secondary">
